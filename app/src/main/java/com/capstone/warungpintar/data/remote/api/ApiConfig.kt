@@ -6,6 +6,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiConfig {
+
+    // TODO: URL is still undetermined
     private const val BASE_URL = ""
 
     fun getApiConfig(): Retrofit {

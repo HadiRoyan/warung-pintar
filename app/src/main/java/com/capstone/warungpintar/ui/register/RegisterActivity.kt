@@ -1,10 +1,12 @@
-package com.capstone.warungpintar.ui
+package com.capstone.warungpintar.ui.register
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.capstone.warungpintar.databinding.ActivityRegisterBinding
+import com.capstone.warungpintar.ui.login.LoginActivity
+import com.capstone.warungpintar.ui.main.MainActivity
 
 class RegisterActivity : AppCompatActivity() {
 
