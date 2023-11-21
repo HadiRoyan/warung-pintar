@@ -1,4 +1,4 @@
-package com.capstone.warungpintar.ui
+package com.capstone.warungpintar.ui.splashscreen
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.capstone.warungpintar.R
+import com.capstone.warungpintar.ui.login.LoginActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreen : AppCompatActivity() {

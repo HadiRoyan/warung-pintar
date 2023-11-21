@@ -1,4 +1,4 @@
-package com.capstone.warungpintar.ui
+package com.capstone.warungpintar.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
