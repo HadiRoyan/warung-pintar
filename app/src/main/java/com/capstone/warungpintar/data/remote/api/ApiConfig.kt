@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiConfig {
 
     // TODO: URL is still undetermined
-    private const val BASE_URL = ""
+    private const val BASE_URL = "http://localhost:8080"
 
     fun getApiConfig(): Retrofit {
         val loggingInterceptor =

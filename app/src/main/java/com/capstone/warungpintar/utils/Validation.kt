@@ -66,4 +66,19 @@ object Validation {
         return true
     }
 
+    fun validateIsNotEmpty(
+        name: String,
+        layout: TextInputLayout,
+        editText: TextInputEditText
+    ): Boolean {
+        if (editText.text.toString().trim().isEmpty()) {
+            layout.error = "$name cannot be empty"
+            return false
+        } else {
+            layout.isErrorEnabled = false
+        }
+        return true
+    }
+
+
 }
