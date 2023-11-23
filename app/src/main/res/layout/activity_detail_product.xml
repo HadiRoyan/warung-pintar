@@ -13,14 +13,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/light_blue">
+        android:backgroundTint="@color/dark_blue">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_arrow_back_24"
-            app:navigationIconTint="@color/white" />
+            app:navigationIconTint="@color/white"
+            app:title="Detail Product"
+            app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
@@ -54,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Mie Sakura"
+                android:text="-"
                 android:textColor="@color/white" />
 
             <TextView
@@ -69,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Rp.1500"
+                android:text="-"
                 android:textColor="@color/white" />
 
             <TextView
@@ -84,6 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Rp.2500"
+                android:text="-"
                 android:textColor="@color/white" />
 
             <TextView
@@ -99,12 +104,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="10"
+                android:text="-"
                 android:textColor="@color/white" />
         </LinearLayout>
 
         <ImageView
             android:layout_marginStart="20dp"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@drawable/rectangle_background"
             android:backgroundTint="@color/white" />
@@ -158,6 +164,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 tools:text="01/01/23"
+                android:text="dd/mm/yyyy"
                 android:textSize="14sp" />
 
             <!--            product category-->
@@ -180,6 +187,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 tools:text="Makanan"
+                android:text="-"
                 android:textSize="14sp" />
 
             <!--            stock code -->
@@ -202,6 +210,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 tools:text="kode barang"
+                android:text="-"
                 android:textSize="14sp" />
 
             <!--            supplier -->
@@ -212,7 +221,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="Tanggal Masuk"
+                android:text="Pemasok"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -224,6 +233,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 tools:text="Jonathan"
+                android:text="-"
                 android:textSize="14sp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
