@@ -3,14 +3,12 @@ package com.capstone.warungpintar.ui.splashscreen
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.capstone.warungpintar.R
 import com.capstone.warungpintar.preferences.UserPreferences
 import com.capstone.warungpintar.ui.main.MainActivity
 import com.capstone.warungpintar.ui.welcoming.WelcomeActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -21,7 +19,7 @@ class SplashScreen : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
 
         val userPref = UserPreferences.getInstance(this)
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             val token = userPref.getToken().first()
             if (token.isNullOrEmpty()) {
                 startActivity(Intent(this@SplashScreen, WelcomeActivity::class.java))
