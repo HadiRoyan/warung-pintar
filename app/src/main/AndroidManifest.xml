@@ -13,6 +13,9 @@
         android:theme="@style/Theme.WarungPintar"
         tools:targetApi="31">
         <activity
+            android:name=".ui.liststockproduct.ListStockProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.detailproduct.DetailProductActivity"
             android:exported="false" />
         <activity
