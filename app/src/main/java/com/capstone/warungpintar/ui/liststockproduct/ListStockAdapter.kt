@@ -21,7 +21,7 @@ class ListStockAdapter : ListAdapter<Product, ListStockAdapter.ListStockViewHold
 
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Product>() {
             override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.productId == newItem.productId
             }
 
             override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
@@ -62,11 +62,11 @@ class ListStockAdapter : ListAdapter<Product, ListStockAdapter.ListStockViewHold
             Glide.with(itemView)
                 .load(product.imageUrl)
                 .into(imgProduct)
-            tvProductName.text = product.name
-            tvSalePrice.text = "Rp.${product.salePrice}"
-            tvBuyPrice.text = "Rp.${product.buyPrice}"
+            tvProductName.text = product.productName
+            tvSalePrice.text = "Rp.${product.sellingPrice}"
+            tvBuyPrice.text = "Rp.${product.purchasePrice}"
             tvEntryDate.text = product.entryDate
-            tvTotalStock.text = product.total.toString()
+            tvTotalStock.text = product.productQuantity.toString()
         }
     }
 }

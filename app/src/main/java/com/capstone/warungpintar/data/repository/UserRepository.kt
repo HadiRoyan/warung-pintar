@@ -2,6 +2,7 @@ package com.capstone.warungpintar.data.repository
 
 import android.util.Log
 import com.capstone.warungpintar.data.ResultState
+import com.capstone.warungpintar.data.model.User
 import com.capstone.warungpintar.data.remote.api.ApiUserService
 import com.capstone.warungpintar.data.remote.model.request.RegisterRequest
 import com.capstone.warungpintar.data.remote.model.response.ErrorResponse
@@ -79,4 +80,28 @@ class UserRepository(
         }
     }
 
+    fun getUserDetail(email: String): Flow<ResultState<User>> = flow {
+        emit(ResultState.Loading)
+
+        try {
+            val response: ResponseAPI<User> = apiUserService.getUserDetail(email)
+            emit(ResultState.Success(response.data))
+        } catch (e: HttpException) {
+            val errorMessage: String = if (e.code() >= 500) {
+                "A server error occurred, try again later"
+            } else {
+                val jsonString = e.response()?.errorBody()?.string()
+                val error: ErrorResponse = Gson().fromJson(jsonString, ErrorResponse::class.java)
+                error.message
+            }
+            emit(ResultState.Error(errorMessage))
+            Log.d(TAG, "login error: ${e.message}, with response $errorMessage")
+        } catch (e: SocketTimeoutException) {
+            Log.d(TAG, "login error: ${e.message}")
+            emit(ResultState.Error("Request Timeout"))
+        } catch (e: Exception) {
+            Log.d(TAG, "login error: ${e.message}")
+            emit(ResultState.Error("Something Wrong, please try again later"))
+        }
+    }
 }

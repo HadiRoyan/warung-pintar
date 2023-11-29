@@ -1,14 +1,8 @@
-package com.capstone.warungpintar.data.model
+package com.capstone.warungpintar.data.remote.model.request
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
-data class Product(
-
-    @field:SerializedName("productId")
-    val productId: Int,
+data class ProductRequest(
 
     @field:SerializedName("product_name")
     val productName: String,
@@ -33,7 +27,4 @@ data class Product(
 
     @field:SerializedName("selling_price")
     val sellingPrice: Int,
-
-    @field:SerializedName("imageUrl")
-    val imageUrl: String
-) : Parcelable
+)
