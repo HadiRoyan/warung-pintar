@@ -33,7 +33,7 @@
             android:textSize="30sp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_input_name"
+            android:id="@+id/layout_store_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_greeting_register"
@@ -47,18 +47,40 @@
             app:boxCornerRadiusTopStart="45dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_regis_name"
+                android:id="@+id/ed_regis_storename"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Name"
+                android:hint="Nama Warung"
                 android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_input_phone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_store_name"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxCornerRadiusBottomEnd="45dp"
+            app:boxCornerRadiusBottomStart="45dp"
+            app:boxCornerRadiusTopEnd="45dp"
+            app:boxCornerRadiusTopStart="45dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_regis_phonenumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nomor Telepon"
+                android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_input_email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_input_name"
+            app:layout_constraintTop_toBottomOf="@id/layout_input_phone"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
@@ -118,7 +140,7 @@
                 android:id="@+id/ed_regis_confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Confirm Password"
+                android:hint="Konfirmasi Password"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 

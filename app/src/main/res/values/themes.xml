@@ -5,6 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="dividerColor">#A9A9A9</item>
     </style>
 
     <style name="Theme.WarungPintar" parent="Base.Theme.WarungPintar" />

@@ -3,9 +3,10 @@ package com.capstone.warungpintar.data.repository
 import android.util.Log
 import com.capstone.warungpintar.data.ResultState
 import com.capstone.warungpintar.data.remote.api.ApiUserService
+import com.capstone.warungpintar.data.remote.model.request.RegisterRequest
 import com.capstone.warungpintar.data.remote.model.response.ErrorResponse
 import com.capstone.warungpintar.data.remote.model.response.LoginResponse
-import com.capstone.warungpintar.data.remote.model.response.RegisterResponse
+import com.capstone.warungpintar.data.remote.model.response.ResponseAPI
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,15 +28,13 @@ class UserRepository(
     }
 
     fun register(
-        name: String,
-        email: String,
-        password: String
+        registerRequest: RegisterRequest
     ): Flow<ResultState<String>> = flow {
         emit(ResultState.Loading)
 
         try {
-            val response: RegisterResponse = apiUserService.postRegister(name, email, password)
-            emit(ResultState.Success(response.message))
+            val response: ResponseAPI<String> = apiUserService.postRegister(registerRequest)
+            emit(ResultState.Success(response.data))
         } catch (e: HttpException) {
             val errorMessage: String = if (e.code() >= 500) {
                 "A server error occurred, try again later"
@@ -59,8 +58,8 @@ class UserRepository(
         emit(ResultState.Loading)
 
         try {
-            val response: LoginResponse = apiUserService.postLogin(email, password)
-            emit(ResultState.Success(response))
+            val response: ResponseAPI<LoginResponse> = apiUserService.postLogin(email, password)
+            emit(ResultState.Success(response.data))
         } catch (e: HttpException) {
             val errorMessage: String = if (e.code() >= 500) {
                 "A server error occurred, try again later"

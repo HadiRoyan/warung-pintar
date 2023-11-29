@@ -1,25 +1,23 @@
 package com.capstone.warungpintar.data.remote.api
 
+import com.capstone.warungpintar.data.remote.model.request.RegisterRequest
 import com.capstone.warungpintar.data.remote.model.response.LoginResponse
-import com.capstone.warungpintar.data.remote.model.response.RegisterResponse
+import com.capstone.warungpintar.data.remote.model.response.ResponseAPI
+import retrofit2.http.Body
 import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
 interface ApiUserService {
 
-    @FormUrlEncoded
-    @POST("register")
+    @POST("api/auth/register")
     suspend fun postRegister(
-        @Field("name") name: String,
-        @Field("email") email: String,
-        @Field("password") password: String
-    ): RegisterResponse
+        @Body bodyRegister: RegisterRequest
+    ): ResponseAPI<String>
 
-    @FormUrlEncoded
-    @POST("login")
+
+    @POST("api/auth/login")
     suspend fun postLogin(
         @Field("email") email: String,
         @Field("password") password: String
-    ): LoginResponse
+    ): ResponseAPI<LoginResponse>
 }
