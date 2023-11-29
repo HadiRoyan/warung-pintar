@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
 
                     is ResultState.Success -> {
                         showLoading(false)
-                        Log.d(TAG, "login success: ${result.data.message}")
+                        Log.d(TAG, "login success: ${result.data.token}")
 
                         // TODO: waiting for API from CC team to test real login
                         /*
