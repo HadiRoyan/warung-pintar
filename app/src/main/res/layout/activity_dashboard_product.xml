@@ -1,49 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/list_product"
+        android:id="@+id/dashboard_product"
         android:layout_width="wrap_content"
         android:layout_height="188dp"
-        android:src="@drawable/home_design" />
+        android:src="@drawable/home_design"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="32dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_user"
             android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@android:color/darker_gray"
-            android:layout_height="40dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            app:layout_constraintTop_toTopOf="@id/iv_user"
-            app:layout_constraintBottom_toBottomOf="@id/iv_user"
-            app:layout_constraintStart_toEndOf="@id/iv_user"
-            android:layout_marginStart="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginStart="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/iv_user"
+            app:layout_constraintStart_toEndOf="@id/iv_user"
+            app:layout_constraintTop_toTopOf="@id/iv_user">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Username"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="mail@gmail.com"
-                android:textColor="@color/white"/>
+                android:text="mail@mail.com"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -53,12 +60,14 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:cardCornerRadius="20dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="92dp"
-        app:cardElevation="10dp" >
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -68,159 +77,161 @@
                 android:id="@+id/ikonbarangmasuk"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/barangmasukicon"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:layout_marginTop="16dp"
+                android:src="@drawable/barangmasukicon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/ikonbarangkeluar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/barangkeluaricon"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
-                app:layout_constraintTop_toBottomOf="@id/ikonbarangmasuk"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:layout_marginTop="16dp"
+                android:src="@drawable/barangkeluaricon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ikonbarangmasuk" />
 
             <ImageView
                 android:id="@+id/ikonproduk"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/produkicon"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
-                app:layout_constraintTop_toBottomOf="@id/ikonbarangkeluar"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:layout_marginTop="16dp"
+                android:src="@drawable/produkicon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ikonbarangkeluar" />
 
             <ImageView
                 android:id="@+id/lowstock"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/lowstockicon"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
-                app:layout_constraintTop_toBottomOf="@id/ikonproduk"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_marginTop="16dp"
+                android:src="@drawable/lowstockicon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ikonproduk" />
 
             <TextView
                 android:id="@+id/tv_barangmasuk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
+                android:layout_marginEnd="16dp"
                 android:text="0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/ikonbarangmasuk"
+                android:textSize="10dp"
                 app:layout_constraintBottom_toBottomOf="@id/ikonbarangmasuk"
-                android:layout_marginEnd="16dp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ikonbarangmasuk" />
 
             <TextView
                 android:id="@+id/tv_barangkeluar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
+                android:layout_marginEnd="16dp"
                 android:text="0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/ikonbarangkeluar"
+                android:textSize="10dp"
                 app:layout_constraintBottom_toBottomOf="@id/ikonbarangkeluar"
-                android:layout_marginEnd="16dp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ikonbarangkeluar" />
 
             <TextView
                 android:id="@+id/tv_produk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
+                android:layout_marginEnd="16dp"
                 android:text="0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/ikonproduk"
+                android:textSize="10dp"
                 app:layout_constraintBottom_toBottomOf="@id/ikonproduk"
-                android:layout_marginEnd="16dp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ikonproduk" />
 
             <TextView
                 android:id="@+id/tv_lowstock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
+                android:layout_marginEnd="16dp"
                 android:text="0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/lowstock"
+                android:textSize="10dp"
                 app:layout_constraintBottom_toBottomOf="@id/lowstock"
-                android:layout_marginEnd="16dp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/lowstock" />
 
             <TextView
                 android:id="@+id/tv_barangmasuk_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
+                android:layout_marginStart="16dp"
                 android:text="Barang Masuk"
-                app:layout_constraintStart_toEndOf="@id/ikonbarangmasuk"
-                app:layout_constraintTop_toTopOf="@id/ikonbarangmasuk"
+                android:textSize="10dp"
                 app:layout_constraintBottom_toBottomOf="@id/ikonbarangmasuk"
-                android:layout_marginStart="16dp"/>
+                app:layout_constraintStart_toEndOf="@id/ikonbarangmasuk"
+                app:layout_constraintTop_toTopOf="@id/ikonbarangmasuk" />
 
             <TextView
                 android:id="@+id/tv_barangkeluar_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
+                android:layout_marginStart="16dp"
                 android:text="Barang Keluar"
-                app:layout_constraintStart_toEndOf="@id/ikonbarangkeluar"
-                app:layout_constraintTop_toTopOf="@id/ikonbarangkeluar"
+                android:textSize="10dp"
                 app:layout_constraintBottom_toBottomOf="@id/ikonbarangkeluar"
-                android:layout_marginStart="16dp"/>
+                app:layout_constraintStart_toEndOf="@id/ikonbarangkeluar"
+                app:layout_constraintTop_toTopOf="@id/ikonbarangkeluar" />
 
             <TextView
                 android:id="@+id/tv_produk_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
+                android:layout_marginStart="16dp"
                 android:text="Produk"
-                app:layout_constraintStart_toEndOf="@id/ikonproduk"
-                app:layout_constraintTop_toTopOf="@id/ikonproduk"
+                android:textSize="10dp"
                 app:layout_constraintBottom_toBottomOf="@id/ikonproduk"
-                android:layout_marginStart="16dp"/>
+                app:layout_constraintStart_toEndOf="@id/ikonproduk"
+                app:layout_constraintTop_toTopOf="@id/ikonproduk" />
 
             <TextView
                 android:id="@+id/tv_lowstock_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
+                android:layout_marginStart="16dp"
                 android:text="Low Stock"
-                app:layout_constraintStart_toEndOf="@id/lowstock"
-                app:layout_constraintTop_toTopOf="@id/lowstock"
+                android:textSize="10dp"
                 app:layout_constraintBottom_toBottomOf="@id/lowstock"
-                android:layout_marginStart="16dp"/>
+                app:layout_constraintStart_toEndOf="@id/lowstock"
+                app:layout_constraintTop_toTopOf="@id/lowstock" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/lowstock"
-                android:layout_marginTop="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp">
-
-             <com.google.android.material.button.MaterialButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="Barang Masuk"
-                 android:layout_marginEnd="16dp"
-                 android:backgroundTint="@color/light_blue"
-                 android:textSize="10sp"
-                 android:drawableLeft="@drawable/ic_plus_circle_outline"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lowstock">
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_barangmasuk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Barang Keluar"
+                    android:layout_marginEnd="16dp"
                     android:backgroundTint="@color/light_blue"
-                    android:textSize="10sp"
-                    android:drawableLeft="@drawable/ic_minus_circle_outline"/>
+                    android:drawableLeft="@drawable/ic_plus_circle_outline"
+                    android:text="Barang Masuk"
+                    android:textSize="10sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_barangkeluar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_blue"
+                    android:drawableLeft="@drawable/ic_minus_circle_outline"
+                    android:text="Barang Keluar"
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
@@ -232,58 +243,59 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/card_view"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginTop="30dp" >
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_view">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:id="@+id/btn_stock"
                 android:layout_width="147dp"
                 android:layout_height="94dp"
+                android:background="@drawable/bg_button"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:background="@drawable/bg_button">
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/img_stockbarang"/>
+                    android:src="@drawable/img_stockbarang" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Stock Barang"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btn_4"
-                android:layout_toRightOf="@+id/btn_riwayat"
-                android:layout_marginLeft="75dp"
                 android:layout_width="147dp"
                 android:layout_height="94dp"
+                android:layout_marginLeft="75dp"
+                android:layout_toRightOf="@+id/btn_riwayat"
+                android:background="@drawable/bg_button"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:background="@drawable/bg_button">
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/ic_riwayatbarang"/>
+                    android:src="@drawable/ic_riwayatbarang" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Riwayat Barang"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
             </LinearLayout>
 
         </LinearLayout>
@@ -291,106 +303,56 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/btn_pemasok"
-                android:layout_width="147dp"
-                android:layout_height="94dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:background="@drawable/bg_button">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_pemasok"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pemasok"
-                    android:textColor="@color/white"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btn_kategori"
-                android:layout_marginLeft="75dp"
-                android:layout_width="147dp"
-                android:layout_height="94dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:background="@drawable/bg_button">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_kategori"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kategori Barang"
-                    android:textColor="@color/white"/>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
             <LinearLayout
                 android:id="@+id/btn_laporan"
                 android:layout_width="147dp"
                 android:layout_height="94dp"
+                android:background="@drawable/bg_button"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:background="@drawable/bg_button">
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/ic_laporan"/>
+                    android:src="@drawable/ic_laporan" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Laporan"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/btn_transaksi"
-                android:layout_marginLeft="75dp"
+                android:id="@+id/btn_kategori"
                 android:layout_width="147dp"
                 android:layout_height="94dp"
+                android:layout_marginLeft="75dp"
+                android:background="@drawable/bg_button"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:background="@drawable/bg_button">
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/ic_transaksi"/>
+                    android:src="@drawable/ic_kategori" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Transaksi"
-                    android:textColor="@color/white"/>
+                    android:text="Kategori Barang"
+                    android:textColor="@color/white" />
             </LinearLayout>
-
-
 
         </LinearLayout>
 
-    </LinearLayout>
+
+        </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

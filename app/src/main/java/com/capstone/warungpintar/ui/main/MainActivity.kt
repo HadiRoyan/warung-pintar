@@ -2,7 +2,6 @@ package com.capstone.warungpintar.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.capstone.warungpintar.R
 import com.capstone.warungpintar.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

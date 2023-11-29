@@ -30,6 +30,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var confirmPasswordEditText: TextInputEditText
     private lateinit var confirmPasswordLayout: TextInputLayout
 
+
     private val viewModel: RegisterViewModel by viewModels {
         RegisterViewModelFactory.getInstance()
     }

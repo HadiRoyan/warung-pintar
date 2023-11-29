@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.capstone.warungpintar.R
 import com.capstone.warungpintar.data.ResultState
 import com.capstone.warungpintar.databinding.ActivityLoginBinding
-import com.capstone.warungpintar.ui.listproduct.ListProductActivity
+import com.capstone.warungpintar.ui.dashboard.DashboardProduct
 import com.capstone.warungpintar.ui.main.MainActivity
 import com.capstone.warungpintar.ui.register.RegisterActivity
 import com.capstone.warungpintar.utils.Validation
@@ -100,7 +100,7 @@ class LoginActivity : AppCompatActivity() {
 //                    passwordEditText.text.toString().trim()
 //                )
                 showMessage("Login Success [Testing]")
-                startActivity(Intent(this@LoginActivity, ListProductActivity::class.java))
+                startActivity(Intent(this@LoginActivity, DashboardProduct::class.java))
             } else {
                 showMessage("Email or password cannot be empty")
             }
