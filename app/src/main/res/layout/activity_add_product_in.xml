@@ -1,378 +1,338 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    tools:context=".ui.addproduct.AddProductInActivity">
+    tools:context=".ui.addproduct.AddProductInActivity"
+    android:scrollbars="none">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/btn_addproduct_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_addproduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Tambahkan Barang Masuk"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_addproduct_close"
+            app:layout_constraintLeft_toRightOf="@id/btn_addproduct_close"
+            app:layout_constraintTop_toTopOf="@+id/btn_addproduct_close"
+            tools:ignore="MissingConstraints" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:id="@+id/product_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_addproduct">
 
             <ImageView
-                android:id="@+id/btn_addproduct_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_close_black"
+                android:id="@+id/iv_product_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="Add Product"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints" />
+                app:srcCompat="@drawable/ic_place_holder"
+                app:tint="#BABABA"
+                tools:ignore="ImageContrastCheck,MissingConstraints" />
 
-            <TextView
-                android:id="@+id/tv_addproduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="Tambahkan Barang Masuk"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_addproduct_close"
-                app:layout_constraintLeft_toRightOf="@id/btn_addproduct_close"
-                app:layout_constraintTop_toTopOf="@+id/btn_addproduct_close"
-                tools:ignore="MissingConstraints" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/product_image"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="16dp"
+            <ImageView
+                android:id="@+id/floatingActionButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_addproduct">
-
-                <ImageView
-                    android:id="@+id/iv_product_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="Add Product"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_place_holder"
-                    app:tint="#BABABA"
-                    tools:ignore="ImageContrastCheck,MissingConstraints" />
-
-                <ImageView
-                    android:id="@+id/floatingActionButton"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:clickable="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/ic_plus_circle_outline"
-                    app:tint="@color/black" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <TextView
-                android:id="@+id/tv_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="29dp"
-                android:text="Nama"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/product_image"
-                tools:ignore="MissingConstraints" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/namabarangEditTextLayout"
-                android:layout_width="256dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="14dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/product_image">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/namabaranglEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Nama Barang"
-                    android:inputType="text"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tv_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="38dp"
-                android:text="Tanggal"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_1"
-                tools:ignore="MissingConstraints" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tglmasukEditTextLayout"
-                android:layout_width="256dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/namabarangEditTextLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tglmasuklEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="20"
-                    android:hint="DD/MM/YY"
-                    android:inputType="date"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tv_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="34dp"
-                android:text="Jumlah"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tv_2"
-                tools:ignore="MissingConstraints" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/jmlmasukEditTextLayout"
-                android:layout_width="256dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tglmasukEditTextLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/jmlmasuklEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="20"
-                    android:hint="Jumlah Barang"
-                    android:inputType="number"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tv_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="37dp"
-                android:text="Low Stock"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tv_3"
-                tools:ignore="MissingConstraints" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/lowstockEditTextLayout"
-                android:layout_width="256dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/jmlmasukEditTextLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/lowstockEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="20"
-                    android:hint="0/10"
-                    android:inputType="number"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tv_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="37dp"
-                android:text="Kode Stock"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tv_4"
-                tools:ignore="MissingConstraints" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/kodestockEditTextLayout"
-                android:layout_width="256dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lowstockEditTextLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/kodestockEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_qrcode"
-                    android:ems="20"
-                    android:hint="Kode Barang Anda"
-                    android:inputType="text"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tv_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:text="Harga Beli"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tv_5"
-                tools:ignore="MissingConstraints" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/hargabeliEditTextLayout"
-                android:layout_width="256dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/kodestockEditTextLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/hargabeliEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="30"
-                    android:hint="Rp."
-                    android:inputType="text"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tv_7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:text="Harga Jual"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tv_6"
-                tools:ignore="MissingConstraints" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/hargajualEditTextLayout"
-                android:layout_width="256dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/hargabeliEditTextLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/hargajualEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="30"
-                    android:hint="Rp."
-                    android:inputType="text"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tv_8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:text="Pemasok"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tv_7"
-                tools:ignore="MissingConstraints" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/pemasokanEditTextLayout"
-                android:layout_width="256dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/hargajualEditTextLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/pemasokanEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="30"
-                    android:hint="Masukkan Nama Pemasok"
-                    android:inputType="text"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tv_9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="34dp"
-                android:text="Kategori"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tv_8"
-                tools:ignore="MissingConstraints" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/kategoribrgEditTextLayout"
-                android:layout_width="256dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/pemasokanEditTextLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/kategoribrgliEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_plus_circle_outline"
-                    android:drawableTint="@color/black"
-                    android:ems="30"
-                    android:hint="Kategori Barang"
-                    android:inputType="text"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="130dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="114dp"
-                android:text="Simpan"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/kategoribrgEditTextLayout"
-                tools:ignore="MissingConstraints" />
-
+                app:srcCompat="@drawable/ic_plus_circle_outline"
+                app:tint="@color/black" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@id/namabarangEditTextLayout"
+            app:layout_constraintBottom_toBottomOf="@id/namabarangEditTextLayout"
+            tools:ignore="MissingConstraints" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/namabarangEditTextLayout"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/product_image">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/namabaranglEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nama Barang"
+                android:inputType="text"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tanggal"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tglmasukEditTextLayout"
+            app:layout_constraintBottom_toBottomOf="@id/tglmasukEditTextLayout"
+            tools:ignore="MissingConstraints" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tglmasukEditTextLayout"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/namabarangEditTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tglmasuklEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:hint="DD/MM/YY"
+                android:inputType="date"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jumlah"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@id/jmlmasukEditTextLayout"
+            app:layout_constraintBottom_toBottomOf="@id/jmlmasukEditTextLayout"
+            tools:ignore="MissingConstraints" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/jmlmasukEditTextLayout"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tglmasukEditTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/jmlmasuklEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:hint="Jumlah Barang"
+                android:inputType="number"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Low Stock"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@id/lowstockEditTextLayout"
+            app:layout_constraintBottom_toBottomOf="@id/lowstockEditTextLayout"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lowstockEditTextLayout"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/jmlmasukEditTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/lowstockEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:hint="0/10"
+                android:inputType="number"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kode Stock"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/kodestockEditTextLayout"
+            app:layout_constraintBottom_toBottomOf="@id/kodestockEditTextLayout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kodestockEditTextLayout"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lowstockEditTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/kodestockEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_qrcode"
+                android:ems="20"
+                android:hint="Kode Barang Anda"
+                android:inputType="text"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Harga Beli"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/hargabeliEditTextLayout"
+            app:layout_constraintBottom_toBottomOf="@id/hargabeliEditTextLayout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/hargabeliEditTextLayout"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/kodestockEditTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/hargabeliEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="30"
+                android:hint="Rp."
+                android:inputType="text"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Harga Jual"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/hargajualEditTextLayout"
+            app:layout_constraintBottom_toBottomOf="@id/hargajualEditTextLayout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/hargajualEditTextLayout"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hargabeliEditTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/hargajualEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="30"
+                android:hint="Rp."
+                android:inputType="text"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kategori"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/kategoribrgEditTextLayout"
+            app:layout_constraintBottom_toBottomOf="@id/kategoribrgEditTextLayout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kategoribrgEditTextLayout"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hargajualEditTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/kategoribrgliEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_plus_circle_outline"
+                android:drawableTint="@color/black"
+                android:ems="30"
+                android:hint="Kategori Barang"
+                android:inputType="text"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="130dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            app:backgroundTint="@color/light_blue"
+            android:textColor="@color/white"
+            android:text="Simpan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/kategoribrgEditTextLayout"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
