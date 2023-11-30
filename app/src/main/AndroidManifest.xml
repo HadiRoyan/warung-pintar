@@ -16,6 +16,9 @@
             android:name=".ui.addproduct.AddProductInActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.liststockproduct.ListStockProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.detailproduct.DetailProductActivity"
             android:exported="false" />
         <activity
@@ -43,7 +46,8 @@
         <activity
             android:name=".ui.dashboard.DashboardProduct"
             android:exported="false" />
-        <activity android:name=".ui.category.CategoryProductActivity"
+        <activity
+            android:name=".ui.category.CategoryProductActivity"
             android:exported="false" />
     </application>
 

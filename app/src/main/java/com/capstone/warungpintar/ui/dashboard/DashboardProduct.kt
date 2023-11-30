@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.capstone.warungpintar.databinding.ActivityDashboardProductBinding
 import com.capstone.warungpintar.ui.addproduct.AddProductInActivity
 import com.capstone.warungpintar.ui.category.CategoryProductActivity
+import com.capstone.warungpintar.ui.liststockproduct.ListStockProductActivity
 
 class DashboardProduct : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardProductBinding
@@ -14,11 +15,18 @@ class DashboardProduct : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.btnBarangmasuk.setOnClickListener{
+
+        binding.btnBarangmasuk.setOnClickListener {
             val intent = Intent(this, AddProductInActivity::class.java)
             startActivity(intent)
         }
-        binding.btnKategori.setOnClickListener{
+
+        binding.btnStock.setOnClickListener {
+            val intent = Intent(this, ListStockProductActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnKategori.setOnClickListener {
             val intent = Intent(this, CategoryProductActivity::class.java)
             startActivity(intent)
         }
