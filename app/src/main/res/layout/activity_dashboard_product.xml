@@ -260,7 +260,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/btn_4"
+                android:id="@+id/btn_history"
                 android:layout_width="147dp"
                 android:layout_height="94dp"
                 android:layout_marginLeft="75dp"
