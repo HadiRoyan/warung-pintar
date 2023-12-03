@@ -6,6 +6,7 @@
         <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="dividerColor">#A9A9A9</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="Theme.WarungPintar" parent="Base.Theme.WarungPintar" />
@@ -16,5 +17,13 @@
         <item name="android:statusBarColor">#2C4BFF</item>
         <item name="android:navigationBarColor">#120188</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+    </style>
+
+    <style name="Theme.WarungPintar.ToolBar" parent="@style/Widget.MaterialComponents.Toolbar">
+        <item name="iconTint">@color/white</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">@color/white</item>
+        <item name="navigationIconTint">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 </resources>

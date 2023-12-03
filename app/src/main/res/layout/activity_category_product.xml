@@ -48,14 +48,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <com.google.android.material.search.SearchBar
-            android:id="@+id/search_bar"
+        <LinearLayout
             android:layout_width="300dp"
             android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:backgroundTint="@color/white"
-            android:hint="Masukkan Kategori Barang Anda"
-            tools:ignore="MissingConstraints" />
+            android:background="@drawable/bg_searchview"
+            android:layout_marginStart="16dp">
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/white"
+                android:hint="Masukkan Kategori Barang Anda"
+                tools:ignore="MissingConstraints" />
+        </LinearLayout>
+
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="43dp"

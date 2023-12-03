@@ -13,7 +13,16 @@
         android:theme="@style/Theme.WarungPintar"
         tools:targetApi="31">
         <activity
+            android:name=".ui.history.ProductHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.notification.NotificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.addproduct.AddProductInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.liststockproduct.ListStockProductActivity"
             android:exported="false" />
         <activity
             android:name=".ui.detailproduct.DetailProductActivity"
@@ -43,7 +52,8 @@
         <activity
             android:name=".ui.dashboard.DashboardProduct"
             android:exported="false" />
-        <activity android:name=".ui.category.CategoryProductActivity"
+        <activity
+            android:name=".ui.category.CategoryProductActivity"
             android:exported="false" />
     </application>
 
