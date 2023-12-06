@@ -10,6 +10,7 @@ import com.capstone.warungpintar.ui.category.CategoryProductActivity
 import com.capstone.warungpintar.ui.history.ProductHistoryActivity
 import com.capstone.warungpintar.ui.liststockproduct.ListStockProductActivity
 import com.capstone.warungpintar.ui.notification.NotificationActivity
+import com.capstone.warungpintar.ui.report.ReportActivity
 import com.capstone.warungpintar.ui.welcoming.WelcomeActivity
 
 class DashboardProduct : AppCompatActivity() {
@@ -38,6 +39,11 @@ class DashboardProduct : AppCompatActivity() {
 
         binding.btnHistory.setOnClickListener {
             val intent = Intent(this, ProductHistoryActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnLaporan.setOnClickListener {
+            val intent = Intent(this, ReportActivity::class.java)
             startActivity(intent)
         }
     }
