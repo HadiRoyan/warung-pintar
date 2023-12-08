@@ -55,9 +55,8 @@ class RegisterActivity : AppCompatActivity() {
                     is ResultState.Success -> {
                         showLoading(false)
                         showMessage("berhasil mendaftar, silakan masuk")
-                        // TODO: wait for the API
-                        // gotoLogin()
-                        // viewModel.registerResult.removeObservers(this)
+                        gotoLogin()
+                        viewModel.registerResult.removeObservers(this)
                     }
 
                     is ResultState.Error -> {

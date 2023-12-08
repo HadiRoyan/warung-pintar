@@ -13,7 +13,6 @@ import com.capstone.warungpintar.R
 import com.capstone.warungpintar.data.ResultState
 import com.capstone.warungpintar.databinding.ActivityLoginBinding
 import com.capstone.warungpintar.ui.dashboard.DashboardProduct
-import com.capstone.warungpintar.ui.main.MainActivity
 import com.capstone.warungpintar.ui.register.RegisterActivity
 import com.capstone.warungpintar.utils.Validation
 import com.google.android.material.textfield.TextInputEditText
@@ -50,12 +49,9 @@ class LoginActivity : AppCompatActivity() {
                         showLoading(false)
                         Log.d(TAG, "login success: ${result.data.token}")
 
-                        // TODO: waiting for API from CC team to test real login
-                        /*
-                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                        startActivity(Intent(this@LoginActivity, DashboardProduct::class.java))
                         finish()
                         viewModel.loginResult.removeObservers(this)
-                        */
                     }
 
                     is ResultState.Error -> {
@@ -99,6 +95,8 @@ class LoginActivity : AppCompatActivity() {
 //                    emailEditText.text.toString().trim(),
 //                    passwordEditText.text.toString().trim()
 //                )
+
+                // Use this for testing
                 showMessage("Login Success [Testing]")
                 startActivity(Intent(this@LoginActivity, DashboardProduct::class.java))
             } else {
