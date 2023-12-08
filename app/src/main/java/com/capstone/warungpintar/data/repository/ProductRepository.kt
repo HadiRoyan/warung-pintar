@@ -68,13 +68,13 @@ class ProductRepository(
         }
     }
 
-    fun getDetailProduct(productId: Int): Flow<ResultState<ResponseAPI<Product>>> = flow {
+    fun getDetailProduct(productId: Int): Flow<ResultState<Product>> = flow {
         emit(ResultState.Loading)
 
         try {
             val response: ResponseAPI<Product> =
                 apiProductService.getDetailProduct(productId.toString())
-            emit(ResultState.Success(response))
+            emit(ResultState.Success(response.data))
         } catch (e: HttpException) {
             val errorMessage: String = if (e.code() >= 500) {
                 "A server error occurred, try again later"

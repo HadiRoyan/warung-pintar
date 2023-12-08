@@ -109,21 +109,24 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_marginStart="20dp"
+            android:id="@+id/img_detail_product"
+            android:layout_marginStart="70dp"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:background="@drawable/rectangle_background"
-            android:backgroundTint="@color/white" />
+            android:backgroundTint="@color/white"
+            android:layout_gravity="center_vertical" />
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_detail_product"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="24dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardElevation="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -213,26 +216,26 @@
                 android:text="-"
                 android:textSize="14sp" />
 
-            <!--            supplier -->
+            <!-- Expired Date -->
             <TextView
-                android:id="@+id/title_supplier"
+                android:id="@+id/title_expired_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_stock_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="Pemasok"
+                android:text="Tanggal Kadaluarsa"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_supplier"
+                android:id="@+id/tv_expired_date"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title_supplier"
+                app:layout_constraintTop_toBottomOf="@id/title_expired_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                tools:text="Jonathan"
+                tools:text="30/12/2023"
                 android:text="-"
                 android:textSize="14sp" />
 
