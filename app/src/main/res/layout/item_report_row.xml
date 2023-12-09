@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:clickable="true"
+    style="@style/Widget.Material3.CardView.Outlined"
+    app:cardCornerRadius="0dp"
+    android:layout_marginBottom="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="24dp">
+
+        <TextView
+            android:id="@+id/tv_product_name_row"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Nama Barang"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <!--        Purchase price -->
+        <TextView
+            android:id="@+id/tv_purchase_price_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/tv_product_name_row"
+            app:layout_constraintTop_toBottomOf="@id/tv_product_name_row"
+            android:layout_marginTop="8dp"
+            tools:text="Harga Beli:" />
+
+        <TextView
+            android:id="@+id/tv_purchase_price_row_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tv_purchase_price_row"
+            app:layout_constraintTop_toTopOf="@id/tv_purchase_price_row"
+            android:layout_marginStart="4dp"
+            tools:text="Rp.0" />
+        <!--        End purchase price -->
+
+        <!--        selling price-->
+        <TextView
+            android:id="@+id/tv_selling_price_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/tv_product_name_row"
+            app:layout_constraintTop_toBottomOf="@id/tv_purchase_price_row"
+            tools:text="Harga Jual:" />
+
+        <TextView
+            android:id="@+id/tv_selling_price_row_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tv_selling_price_row"
+            app:layout_constraintTop_toTopOf="@id/tv_selling_price_row"
+            android:layout_marginStart="4dp"
+            tools:text="Rp.0" />
+        <!--        End selling price-->
+
+        <!--        exit date-->
+        <TextView
+            android:id="@+id/tv_exit_date_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/tv_product_name_row"
+            app:layout_constraintTop_toBottomOf="@id/tv_selling_price_row"
+            tools:text="Tanggal Keluar:" />
+
+        <TextView
+            android:id="@+id/tv_exit_date_row_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tv_exit_date_row"
+            app:layout_constraintTop_toTopOf="@id/tv_exit_date_row"
+            android:layout_marginStart="4dp"
+            tools:text="30/12/2023" />
+        <!--        end exit date-->
+
+        <TextView
+            android:id="@+id/tv_profit_product_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Rp.0"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

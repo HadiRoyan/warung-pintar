@@ -1,6 +1,7 @@
 package com.capstone.warungpintar.data.remote.api
 
 import com.capstone.warungpintar.data.model.Product
+import com.capstone.warungpintar.data.remote.model.response.HistoryResponse
 import com.capstone.warungpintar.data.remote.model.response.ResponseAPI
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -29,4 +30,7 @@ interface ApiProductService {
 
     @GET("api/products/categories")
     suspend fun getListCategoryProduct(): ResponseAPI<List<String>>
+
+    @GET("api/product/histories/{email}")
+    suspend fun getListHistories(@Path("email") email: String): ResponseAPI<List<HistoryResponse>>
 }

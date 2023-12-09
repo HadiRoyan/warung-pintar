@@ -35,5 +35,9 @@ data class Product(
     val sellingPrice: Int,
 
     @field:SerializedName("imageUrl")
-    val imageUrl: String
+    val imageUrl: String,
+
+    @field:SerializedName("expired_date")
+    val expiredDate: String
+    
 ) : Parcelable

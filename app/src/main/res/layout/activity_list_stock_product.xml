@@ -18,7 +18,7 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@drawable/ic_arrow_back_24"
+            app:navigationIcon="@drawable/ic_close_black"
             app:title="List Barang"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Headline"
             app:titleCentered="true" />
@@ -35,7 +35,9 @@
         android:layout_marginHorizontal="24dp"
         android:background="@drawable/searchview_background"
         app:iconifiedByDefault="false"
-        app:queryHint="Cari barang" />
+        app:queryHint="Cari barang"
+        app:searchIcon="@drawable/ic_baseline_search_24"
+        app:closeIcon="@drawable/ic_close_black" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list_stock_product"
