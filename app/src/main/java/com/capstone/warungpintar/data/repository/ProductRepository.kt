@@ -119,11 +119,11 @@ class ProductRepository(
         }
     }
 
-    fun getListCategoryProduct(): Flow<ResultState<ResponseAPI<List<String>>>> = flow {
+    fun getListCategoryProduct(): Flow<ResultState<List<String>>> = flow {
         emit(ResultState.Loading)
         try {
             val response: ResponseAPI<List<String>> = apiProductService.getListCategoryProduct()
-            emit(ResultState.Success(response))
+            emit(ResultState.Success(response.data))
         } catch (e: HttpException) {
             val errorMessage: String = if (e.code() >= 500) {
                 "A server error occurred, try again later"
