@@ -4,6 +4,7 @@ import android.util.Log
 import com.capstone.warungpintar.data.ResultState
 import com.capstone.warungpintar.data.model.Product
 import com.capstone.warungpintar.data.remote.api.ApiProductService
+import com.capstone.warungpintar.data.remote.model.request.DeleteProductRequest
 import com.capstone.warungpintar.data.remote.model.request.ProductRequest
 import com.capstone.warungpintar.data.remote.model.response.ErrorResponse
 import com.capstone.warungpintar.data.remote.model.response.HistoryResponse
@@ -164,6 +165,36 @@ class ProductRepository(
             emit(ResultState.Error("Request Timeout"))
         } catch (e: Exception) {
             Log.d(TAG, "get all history error: ${e.message}")
+            emit(ResultState.Error("Something Wrong, please try again later"))
+        }
+    }
+
+    fun deleteProduct(
+        email: String,
+        productName: String,
+        data: DeleteProductRequest
+    ): Flow<ResultState<String>> = flow {
+        emit(ResultState.Loading)
+
+        try {
+            val response: ResponseAPI<String> =
+                apiProductService.deleteProduct(email, productName, data)
+            emit(ResultState.Success(response.data))
+        } catch (e: HttpException) {
+            val errorMessage: String = if (e.code() >= 500) {
+                "A server error occurred, try again later"
+            } else {
+                val jsonString = e.response()?.errorBody()?.string()
+                val error: ErrorResponse = Gson().fromJson(jsonString, ErrorResponse::class.java)
+                error.message
+            }
+            emit(ResultState.Error(errorMessage))
+            Log.d(TAG, "Delete Product error: ${e.message}, with response $errorMessage")
+        } catch (e: SocketTimeoutException) {
+            Log.d(TAG, "Delete Product error: ${e.message}")
+            emit(ResultState.Error("Request Timeout"))
+        } catch (e: Exception) {
+            Log.d(TAG, "Delete Product error: ${e.message}")
             emit(ResultState.Error("Something Wrong, please try again later"))
         }
     }

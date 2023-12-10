@@ -13,8 +13,8 @@ import com.capstone.warungpintar.data.remote.model.response.DashboardResponse
 import com.capstone.warungpintar.databinding.ActivityDashboardProductBinding
 import com.capstone.warungpintar.ui.addproduct.AddProductInActivity
 import com.capstone.warungpintar.ui.category.CategoryProductActivity
+import com.capstone.warungpintar.ui.deleteproduct.DeleteProductOutActivity
 import com.capstone.warungpintar.ui.history.ProductHistoryActivity
-import com.capstone.warungpintar.ui.listproductout.ListProductOutActivity
 import com.capstone.warungpintar.ui.liststockproduct.ListStockProductActivity
 import com.capstone.warungpintar.ui.notification.NotificationActivity
 import com.capstone.warungpintar.ui.report.ReportActivity
@@ -115,7 +115,7 @@ class DashboardProduct : AppCompatActivity() {
         }
 
         binding.btnBarangkeluar.setOnClickListener {
-            val intent = Intent(this, ListProductOutActivity::class.java)
+            val intent = Intent(this, DeleteProductOutActivity::class.java)
             startActivity(intent)
         }
 
