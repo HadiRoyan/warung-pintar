@@ -3,6 +3,7 @@ package com.capstone.warungpintar.data.remote.api
 import com.capstone.warungpintar.data.model.Product
 import com.capstone.warungpintar.data.remote.model.request.DeleteProductRequest
 import com.capstone.warungpintar.data.remote.model.response.HistoryResponse
+import com.capstone.warungpintar.data.remote.model.response.ReportResponse
 import com.capstone.warungpintar.data.remote.model.response.ResponseAPI
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -43,4 +44,7 @@ interface ApiProductService {
         @Path("product_name") productName: String,
         @Body bodyDelete: DeleteProductRequest
     ): ResponseAPI<String>
+
+    @GET("api/report/{email}")
+    suspend fun getListReports(@Path("email") email: String): ResponseAPI<List<ReportResponse>>
 }

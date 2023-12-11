@@ -8,6 +8,7 @@ import com.capstone.warungpintar.data.remote.model.request.DeleteProductRequest
 import com.capstone.warungpintar.data.remote.model.request.ProductRequest
 import com.capstone.warungpintar.data.remote.model.response.ErrorResponse
 import com.capstone.warungpintar.data.remote.model.response.HistoryResponse
+import com.capstone.warungpintar.data.remote.model.response.ReportResponse
 import com.capstone.warungpintar.data.remote.model.response.ResponseAPI
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
@@ -195,6 +196,32 @@ class ProductRepository(
             emit(ResultState.Error("Request Timeout"))
         } catch (e: Exception) {
             Log.d(TAG, "Delete Product error: ${e.message}")
+            emit(ResultState.Error("Something Wrong, please try again later"))
+        }
+    }
+
+    fun getListReport(email: String): Flow<ResultState<List<ReportResponse>>> = flow {
+        emit(ResultState.Loading)
+
+        try {
+            val response: ResponseAPI<List<ReportResponse>> =
+                apiProductService.getListReports(email)
+            emit(ResultState.Success(response.data))
+        } catch (e: HttpException) {
+            val errorMessage: String = if (e.code() >= 500) {
+                "A server error occurred, try again later"
+            } else {
+                val jsonString = e.response()?.errorBody()?.string()
+                val error: ErrorResponse = Gson().fromJson(jsonString, ErrorResponse::class.java)
+                error.message
+            }
+            emit(ResultState.Error(errorMessage))
+            Log.d(TAG, "Get report error: ${e.message}, with response $errorMessage")
+        } catch (e: SocketTimeoutException) {
+            Log.d(TAG, "Get report error: ${e.message}")
+            emit(ResultState.Error("Request Timeout"))
+        } catch (e: Exception) {
+            Log.d(TAG, "Get report error: ${e.message}")
             emit(ResultState.Error("Something Wrong, please try again later"))
         }
     }
