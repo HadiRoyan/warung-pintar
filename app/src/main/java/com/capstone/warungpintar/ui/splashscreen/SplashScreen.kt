@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.capstone.warungpintar.R
 import com.capstone.warungpintar.ui.dashboard.DashboardProduct
 import com.capstone.warungpintar.ui.welcoming.WelcomeActivity
@@ -15,6 +16,7 @@ import com.google.firebase.auth.auth
 @SuppressLint("CustomSplashScreen")
 class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
         val auth = Firebase.auth
