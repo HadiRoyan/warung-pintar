@@ -46,6 +46,10 @@ class ListStockProductActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.topAppBar.setNavigationOnClickListener { _ ->
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

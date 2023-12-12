@@ -39,17 +39,16 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/constraint1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="10"
-        tools:listitem="@layout/activity_list_product_out_row"
-        tools:ignore="NotSibling" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraint1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="NotSibling"
+        tools:listitem="@layout/activity_list_product_out_row" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

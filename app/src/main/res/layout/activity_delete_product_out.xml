@@ -179,7 +179,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="30"
-                android:hint="Rp."
+                android:hint="Masukkan Harga Jual"
                 android:inputType="text"
                 tools:ignore="SpeakableTextPresentCheck" />
 

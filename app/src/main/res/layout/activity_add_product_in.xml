@@ -51,20 +51,23 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/ic_place_holder"
-                app:tint="#BABABA"
-                tools:ignore="ImageContrastCheck,MissingConstraints" />
+                app:tint="#BABABA" />
 
             <ImageView
                 android:id="@+id/floatingActionButton"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="20dp"
                 android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_plus_circle_outline"
+                app:srcCompat="@drawable/baseline_drive_folder_upload_24"
                 app:tint="@color/black" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -187,7 +190,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="20"
-                android:hint="0/10"
+                android:hint="Masukkan Batas Stock"
                 android:inputType="number"
                 tools:ignore="SpeakableTextPresentCheck" />
 
@@ -205,25 +208,37 @@
             app:layout_constraintTop_toTopOf="@id/kodestockEditTextLayout"
             app:layout_constraintBottom_toBottomOf="@id/kodestockEditTextLayout" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/kodestockEditTextLayout"
             android:layout_width="256dp"
-            android:layout_height="wrap_content"
+            android:background="@drawable/bg_grayoutlined"
+            android:layout_height="50dp"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lowstockEditTextLayout">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/kodestockEditText"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_resultscan"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_qrcode"
-                android:ems="20"
-                android:hint="Kode Barang Anda"
-                android:inputType="text"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_qrcode"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tv_6"
@@ -311,7 +326,6 @@
                 android:id="@+id/kategoribrgliEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_plus_circle_outline"
                 android:drawableTint="@color/black"
                 android:ems="30"
                 android:hint="Kategori Barang"
