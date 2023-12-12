@@ -14,10 +14,21 @@ class RegisterViewModel(private val userRepository: UserRepository) : ViewModel(
     private var _registerResult: MutableLiveData<ResultState<String>> = MutableLiveData()
     val registerResult: LiveData<ResultState<String>> get() = _registerResult
 
+    private var _registerFirebaseResult: MutableLiveData<ResultState<String>> = MutableLiveData()
+    val registerFirebaseResult: LiveData<ResultState<String>> get() = _registerFirebaseResult
+
     fun register(registerRequest: RegisterRequest) {
         viewModelScope.launch {
             userRepository.register(registerRequest).collect {
                 _registerResult.value = it
+            }
+        }
+    }
+
+    fun registerToFirebase(email: String, password: String) {
+        viewModelScope.launch {
+            userRepository.registerToFirebase(email, password).collect {
+                _registerFirebaseResult.value = it
             }
         }
     }

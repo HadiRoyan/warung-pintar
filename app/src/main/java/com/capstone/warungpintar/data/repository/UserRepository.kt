@@ -8,23 +8,31 @@ import com.capstone.warungpintar.data.remote.model.request.RegisterRequest
 import com.capstone.warungpintar.data.remote.model.response.ErrorResponse
 import com.capstone.warungpintar.data.remote.model.response.LoginResponse
 import com.capstone.warungpintar.data.remote.model.response.ResponseAPI
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.gson.Gson
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 
 class UserRepository(
-    private val apiUserService: ApiUserService
+    private val apiUserService: ApiUserService,
+    private val auth: FirebaseAuth
 ) {
     companion object {
         private const val TAG = "UserRepository"
 
         @Volatile
         private var instance: UserRepository? = null
+        private val auth = Firebase.auth
         fun getInstance(apiUserService: ApiUserService) =
             instance ?: synchronized(this) {
-                instance ?: UserRepository(apiUserService)
+                instance ?: UserRepository(apiUserService, auth)
             }.also { instance = it }
     }
 
@@ -55,6 +63,31 @@ class UserRepository(
         }
     }
 
+    fun registerToFirebase(email: String, password: String) = channelFlow {
+        send(ResultState.Loading)
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                launch {
+                    if (task.isSuccessful) {
+                        val user = task.result.user
+                        send(ResultState.Success(user?.email ?: ""))
+                        Log.d(TAG, "success create user $email with id ${user?.uid}")
+
+                    } else {
+                        val defaultMessage = "Gagal mendaftarkan akun"
+                        send(ResultState.Error(task.exception?.message ?: defaultMessage))
+                        Log.d(
+                            TAG,
+                            "failed to create user $email with error ${task.exception?.message}"
+                        )
+                    }
+                }
+            }
+
+        awaitClose()
+    }
+
     fun login(email: String, password: String): Flow<ResultState<LoginResponse>> = flow {
         emit(ResultState.Loading)
 
@@ -78,6 +111,38 @@ class UserRepository(
             Log.d(TAG, "login error: ${e.message}")
             emit(ResultState.Error("Something Wrong, please try again later"))
         }
+    }
+
+    fun loginWithFirebase(email: String, password: String) = channelFlow {
+        send(ResultState.Loading)
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                launch {
+                    if (task.isSuccessful) {
+                        send(ResultState.Success("Berhasil Masuk"))
+                        val user = task.result.user
+                        Log.d(TAG, "success login user $email with id ${user?.uid}")
+
+                    } else {
+                        val exceptionMessage = task.exception?.message
+                        val message = if (exceptionMessage.isNullOrEmpty()) {
+                            "Gagal masuk, silahkan coba lagi"
+                        } else if (exceptionMessage.contains("credential is incorrect", true)) {
+                            "email atau password salah"
+                        } else {
+                            "Gagal masuk, silahkan coba lagi"
+                        }
+                        send(ResultState.Error(message))
+                        Log.d(
+                            TAG,
+                            "failed to login user $email with error ${task.exception?.message}"
+                        )
+                    }
+                }
+            }
+
+        awaitClose()
     }
 
     fun getUserDetail(email: String): Flow<ResultState<User>> = flow {

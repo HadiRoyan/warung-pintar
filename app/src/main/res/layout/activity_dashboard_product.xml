@@ -31,8 +31,10 @@
             style="@style/Theme.WarungPintar.ToolBar"
             app:navigationIcon="@drawable/ic_baseline_account_circle_24"
             app:navigationIconTint="@color/white"
-            app:title="Store Name"
-            app:subtitle="email@gmail.com"
+            app:title="Hi"
+            app:subtitle="-"
+            tools:subtitle="email@gmail.com"
+            tools:title="Store Name"
             app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:subtitleTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
             app:menu="@menu/main_menu" />
