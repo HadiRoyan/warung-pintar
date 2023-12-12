@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.capstone.warungpintar.R
 import com.capstone.warungpintar.data.ResultState
@@ -106,7 +107,7 @@ class DashboardProduct : AppCompatActivity() {
                 }
 
                 R.id.action_logout -> {
-                    signOut()
+                    showLogoutDialog()
                     true
                 }
 
@@ -119,6 +120,19 @@ class DashboardProduct : AppCompatActivity() {
         auth.signOut()
         startActivity(Intent(this@DashboardProduct, WelcomeActivity::class.java))
         finish()
+    }
+
+    private fun showLogoutDialog() {
+        val alertDialog = AlertDialog.Builder(this)
+        alertDialog.setTitle("Keluar?")
+            .setMessage("Apakah anda yakin ingin keluar dari aplikasi")
+            .setPositiveButton("YES") { _, _ ->
+                signOut()
+            }
+            .setNegativeButton("NO") { dialog, _ ->
+                dialog.dismiss()
+            }
+        alertDialog.create().show()
     }
 
     private fun setupAction() {
