@@ -13,6 +13,7 @@ import com.capstone.warungpintar.R
 import com.capstone.warungpintar.data.ResultState
 import com.capstone.warungpintar.databinding.ActivityLoginBinding
 import com.capstone.warungpintar.ui.dashboard.DashboardProduct
+import com.capstone.warungpintar.ui.forgotpassword.ForgotPasswordActivity
 import com.capstone.warungpintar.ui.register.RegisterActivity
 import com.capstone.warungpintar.utils.Validation
 import com.google.android.material.textfield.TextInputEditText
@@ -84,6 +85,10 @@ class LoginActivity : AppCompatActivity() {
         binding.btnRegister.setOnClickListener { _ ->
             startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
             finish()
+        }
+
+        binding.tvForgetPassword.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java))
         }
 
         binding.btnLogin.setOnClickListener { _ ->
