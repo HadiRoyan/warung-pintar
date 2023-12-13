@@ -14,10 +14,21 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
     private var _loginResult: MutableLiveData<ResultState<LoginResponse>> = MutableLiveData()
     val loginResult: LiveData<ResultState<LoginResponse>> get() = _loginResult
 
+    private var _loginFirebaseResult: MutableLiveData<ResultState<String>> = MutableLiveData()
+    val loginFirebaseResult: LiveData<ResultState<String>> get() = _loginFirebaseResult
+
     fun login(email: String, password: String) {
         viewModelScope.launch {
             userRepository.login(email, password).collect {
                 _loginResult.value = it
+            }
+        }
+    }
+
+    fun loginWithFirebase(email: String, password: String) {
+        viewModelScope.launch {
+            userRepository.loginWithFirebase(email, password).collect {
+                _loginFirebaseResult.value = it
             }
         }
     }

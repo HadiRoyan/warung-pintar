@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.capstone.warungpintar.R
 import com.capstone.warungpintar.data.ResultState
@@ -19,9 +20,13 @@ import com.capstone.warungpintar.ui.liststockproduct.ListStockProductActivity
 import com.capstone.warungpintar.ui.notification.NotificationActivity
 import com.capstone.warungpintar.ui.report.ReportActivity
 import com.capstone.warungpintar.ui.welcoming.WelcomeActivity
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 class DashboardProduct : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardProductBinding
+    private lateinit var auth: FirebaseAuth
 
     private val viewModel: DashboardViewModel by viewModels {
         DashboardViewModelFactory.getInstance()
@@ -36,14 +41,18 @@ class DashboardProduct : AppCompatActivity() {
         setContentView(binding.root)
         setTopBarAction()
         setupAction()
+        auth = Firebase.auth
+        email = auth.currentUser?.email ?: ""
+
         if (email.isNotEmpty()) {
             viewModel.getDashboardUser(email)
+            binding.topAppBar.subtitle = email
         } else {
             Toast.makeText(this, "Something failed", Toast.LENGTH_SHORT).show()
-            Log.d(TAG, "onCreate: email is null, cannot get dashboard data")
+            Log.d(TAG, "onCreate: email is null or empty, cannot get dashboard data")
+            signOut()
         }
 
-        // TODO: finish actions
         viewModel.resultRequest.observe(this) { result ->
             if (result != null) {
                 when (result) {
@@ -58,7 +67,8 @@ class DashboardProduct : AppCompatActivity() {
                     }
 
                     is ResultState.Error -> {
-                        // TODO: handle actions when errors occur
+                        showLoading(false)
+                        Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
                         Log.d(TAG, "onCreate: error fetch data from API: ${result.error}")
                     }
                 }
@@ -70,7 +80,6 @@ class DashboardProduct : AppCompatActivity() {
         with(binding) {
             // store data
             topAppBar.title = data.storeData.storeName
-            topAppBar.subtitle = data.storeData.email
 
             // stock data
             tvBarangmasuk.text = data.stockData.entryProduct.toString()
@@ -98,14 +107,32 @@ class DashboardProduct : AppCompatActivity() {
                 }
 
                 R.id.action_logout -> {
-                    startActivity(Intent(this@DashboardProduct, WelcomeActivity::class.java))
-                    finish()
+                    showLogoutDialog()
                     true
                 }
 
                 else -> false
             }
         }
+    }
+
+    private fun signOut() {
+        auth.signOut()
+        startActivity(Intent(this@DashboardProduct, WelcomeActivity::class.java))
+        finish()
+    }
+
+    private fun showLogoutDialog() {
+        val alertDialog = AlertDialog.Builder(this)
+        alertDialog.setTitle("Keluar?")
+            .setMessage("Apakah anda yakin ingin keluar dari aplikasi")
+            .setPositiveButton("YES") { _, _ ->
+                signOut()
+            }
+            .setNegativeButton("NO") { dialog, _ ->
+                dialog.dismiss()
+            }
+        alertDialog.create().show()
     }
 
     private fun setupAction() {

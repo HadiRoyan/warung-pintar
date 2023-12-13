@@ -20,6 +20,9 @@
             android:name=".ui.addproduct.ScannerActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.forgotpassword.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.report.ReportActivity"
             android:exported="false" />
         <activity
