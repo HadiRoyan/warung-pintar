@@ -40,8 +40,8 @@ class AddProductInActivity : AppCompatActivity() {
                 cameraRequest
             )
         binding.kodestockEditTextLayout.setOnClickListener {
-            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(cameraIntent, cameraRequest)
+            val intent = Intent(this, AddScannerActivity::class.java)
+            startActivity(intent)
         }
 
     }

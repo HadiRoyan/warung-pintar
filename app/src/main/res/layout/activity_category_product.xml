@@ -34,6 +34,7 @@
             app:titleTextColor="@color/white"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Headline"
             app:titleCentered="true" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.appcompat.widget.SearchView
