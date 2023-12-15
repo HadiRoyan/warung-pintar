@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.capstone.warungpintar.R
 import com.capstone.warungpintar.data.ResultState
@@ -20,6 +19,7 @@ import com.capstone.warungpintar.ui.liststockproduct.ListStockProductActivity
 import com.capstone.warungpintar.ui.notification.NotificationActivity
 import com.capstone.warungpintar.ui.report.ReportActivity
 import com.capstone.warungpintar.ui.welcoming.WelcomeActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -123,7 +123,7 @@ class DashboardProduct : AppCompatActivity() {
     }
 
     private fun showLogoutDialog() {
-        val alertDialog = AlertDialog.Builder(this)
+        val alertDialog = MaterialAlertDialogBuilder(this)
         alertDialog.setTitle("Keluar?")
             .setMessage("Apakah anda yakin ingin keluar dari aplikasi")
             .setPositiveButton("YES") { _, _ ->

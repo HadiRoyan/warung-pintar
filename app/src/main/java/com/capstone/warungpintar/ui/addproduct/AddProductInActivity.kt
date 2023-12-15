@@ -11,8 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import com.capstone.warungpintar.R
 import com.capstone.warungpintar.databinding.ActivityAddProductInBinding
 import com.capstone.warungpintar.ui.addproduct.AddScannerActivity.Companion.CAMERAX_RESULT
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AddProductInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddProductInBinding
@@ -38,7 +40,7 @@ class AddProductInActivity : AppCompatActivity() {
             )
 
         binding.kodestockEditTextLayout.setOnClickListener {
-            startCameraX()
+            showDialog()
         }
     }
 
@@ -55,6 +57,16 @@ class AddProductInActivity : AppCompatActivity() {
                 it.data?.getStringExtra(AddScannerActivity.EXTRA_CAMERAX_IMAGE)?.toUri()
             Log.d(TAG, "image uri: ${currentImageUri.toString()}")
         }
+    }
+
+    private fun showDialog() {
+        val alertDialog = MaterialAlertDialogBuilder(this)
+        alertDialog.setTitle("Informasi!")
+            .setMessage(getString(R.string.ocr_information_dialog))
+            .setPositiveButton("Mengerti dan Lanjutkan") { _, _ ->
+                startCameraX()
+            }
+        alertDialog.create().show()
     }
 
     companion object {
