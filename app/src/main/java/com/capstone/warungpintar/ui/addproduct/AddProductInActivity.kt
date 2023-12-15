@@ -3,34 +3,31 @@ package com.capstone.warungpintar.ui.addproduct
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.capstone.warungpintar.R
+import androidx.core.net.toUri
 import com.capstone.warungpintar.databinding.ActivityAddProductInBinding
-import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.text.Text
-import com.google.mlkit.vision.text.TextRecognition
-import com.google.mlkit.vision.text.TextRecognizerOptionsInterface
-import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import com.capstone.warungpintar.ui.addproduct.AddScannerActivity.Companion.CAMERAX_RESULT
 
 class AddProductInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddProductInBinding
     private val cameraRequest = 1888
-    private lateinit var bitmap : Bitmap
+
+    private var currentImageUri: Uri? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddProductInBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnAddproductClose.setOnClickListener {
-            onBackPressed()
-
-
+            onBackPressedDispatcher.onBackPressed()
         }
+
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
             == PackageManager.PERMISSION_DENIED
         )
@@ -39,52 +36,28 @@ class AddProductInActivity : AppCompatActivity() {
                 arrayOf(Manifest.permission.CAMERA),
                 cameraRequest
             )
+
         binding.kodestockEditTextLayout.setOnClickListener {
-            val intent = Intent(this, AddScannerActivity::class.java)
-            startActivity(intent)
-        }
-
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == cameraRequest) {
-            bitmap = data?.extras?.get("data") as Bitmap
-            val image = InputImage.fromBitmap(bitmap, 0)
-            val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-            recognizer.process(image)
-                .addOnSuccessListener { text ->
-                    processResultText(text)
-                    Log.i("Text recognition: ", "Success")
-                }
-                .addOnFailureListener {
-                    Log.i("Text recognition: ", "Failed")
-                }
+            startCameraX()
         }
     }
-    private fun processResultText(resultText: Text) {
-        if (resultText.textBlocks.size == 0) {
-            return
-        }
-        for (blockText in resultText.textBlocks) {
-            for (line in blockText.lines) {
-                for (element in line.elements) {
 
-                    // Create a mutable bitmap
-                    val bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+    private fun startCameraX() {
+        val intent = Intent(this, AddScannerActivity::class.java)
+        launcherIntentCameraX.launch(intent)
+    }
 
-                    // Get the block bounding box
-                    // boundingBox = element.boundingBox
-                    // canvas = Canvas(bitmap)
-                    // paint.color = Color.RED
-                    // paint.style = Paint.Style.STROKE
-                    // paint.strokeWidth = 1F
-
-                    // Draw the rectangle around the text recognized
-                    // if (boundingBox != null) {
-                       // canvas.drawRect(boundingBox!!, paint)
-                    }
-                }
-                // receiptImage.setImageBitmap(bitmap)
-            }
+    private val launcherIntentCameraX = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == CAMERAX_RESULT) {
+            currentImageUri =
+                it.data?.getStringExtra(AddScannerActivity.EXTRA_CAMERAX_IMAGE)?.toUri()
+            Log.d(TAG, "image uri: ${currentImageUri.toString()}")
         }
     }
+
+    companion object {
+        private const val TAG = "AddProductInActivity"
+    }
+}
