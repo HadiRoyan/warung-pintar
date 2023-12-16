@@ -105,8 +105,6 @@ def split_data(SOURCE_DIR, TRAINING_DIR, VALIDATION_DIR, TESTING_DIR, SPLIT_SIZE
 
   pass
 
-# Test your split_data function
-
 # Define paths
 
 TRAINING_DIR = root_dir+"/training/"
