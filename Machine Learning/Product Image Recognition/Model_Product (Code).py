@@ -15,7 +15,7 @@ drive_path = '/content/drive/Shareddrives'
 
 #Sourcing
 
-source_path = '/content/gdrive/Shareddrives/CAPSTONE/DATASET/images/' #KALAU GANTI LOKASI, HARUS GANTI#
+source_path = '/content/gdrive/Shareddrives/CAPSTONE/DATASET/images/'
 train_path = source_path + 'train/'
 test_path = source_path + 'test/'
 
