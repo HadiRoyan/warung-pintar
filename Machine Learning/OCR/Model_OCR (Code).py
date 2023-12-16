@@ -221,12 +221,12 @@ def step_decay(epoch):
     return lr
 
 lrate = tf.keras.callbacks.LearningRateScheduler(step_decay, verbose = 1) #Schedule, meaning when the epoch starts to change
-
+callbacks_list = [lrate]
 
 history = model.fit(train_generator,
                     epochs=550,
                     validation_data=validation_generator,
-                    callbacks=[lr_callback, callbacks_list]) #For changing the learning rate as the programm runs overtime
+                    callbacks=callbacks_list) #For changing the learning rate as the programm runs overtime
 
 
 # Plot the chart for accuracy and loss on both training and validation
