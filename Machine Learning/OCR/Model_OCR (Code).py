@@ -25,7 +25,7 @@ print(f"There are {len(os.listdir(source_path_1))} images of 1.")
 
 
 # Define root directory
-root_dir = '/digits' #BISA DIATUR SENDIRI BUAT LOKASI DARI FILE TRAINING DAN VALIDATION#
+root_dir = '/digits'
 
 # Empty directory to prevent FileExistsError is the function is run several times
 if os.path.exists(root_dir):
@@ -58,10 +58,7 @@ except FileExistsError:
 for rootdir, dirs, files in os.walk(root_dir):
     for subdir in dirs:
         print(os.path.join(rootdir, subdir))
-
-
-
-
+      
 #split_data
 def split_data(SOURCE_DIR, TRAINING_DIR, VALIDATION_DIR, TESTING_DIR, SPLIT_SIZE, SPLIT_SIZE_TEST):
   """
