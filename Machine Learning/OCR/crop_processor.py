@@ -11,8 +11,27 @@ import numpy as np
 #Load model
 loaded_model = tf.keras.models.load_model("./model_ocr.h5")
 
-# Load image, grayscale, Otsu's threshold
-image = cv2.imread('./img_00001.jpg') #Input
+# Load image and crop to desired guideline
+image = Image.open('./download.jpg') #Input
+
+width, height = image.size 
+new_width = 350
+new_height = 200
+
+left = (width/2 - new_width)
+top = (height/2 - new_height)
+right = (width/2 + new_width)
+bottom = (height/2 + new_height)
+
+# Crop the center of the image
+image = image.crop((left, top, right, bottom))
+
+#Show the image
+#plt.imshow(image)
+#plt.axis('off')
+#plt.show()
+
+# grayscale and Otsu's threshold
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 thresh = cv2.threshold(gray,0,255,cv2.THRESH_OTSU + cv2.THRESH_BINARY_INV)[1]
 
