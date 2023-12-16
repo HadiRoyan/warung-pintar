@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -13,7 +14,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.capstone.warungpintar.R
 import com.capstone.warungpintar.databinding.ActivityAddProductInBinding
+import com.capstone.warungpintar.databinding.DialogResultScannerLayoutBinding
 import com.capstone.warungpintar.ui.addproduct.AddScannerActivity.Companion.CAMERAX_RESULT
+import com.capstone.warungpintar.utils.Validation
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AddProductInActivity : AppCompatActivity() {
@@ -21,6 +24,7 @@ class AddProductInActivity : AppCompatActivity() {
     private val cameraRequest = 1888
 
     private var currentImageUri: Uri? = null
+    private var expiredDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +59,14 @@ class AddProductInActivity : AppCompatActivity() {
         if (it.resultCode == CAMERAX_RESULT) {
             currentImageUri =
                 it.data?.getStringExtra(AddScannerActivity.EXTRA_CAMERAX_IMAGE)?.toUri()
-            Log.d(TAG, "image uri: ${currentImageUri.toString()}")
+
+            if (currentImageUri != null) {
+                showDialogResult(currentImageUri!!)
+                Log.d(TAG, "image uri: ${currentImageUri.toString()}")
+            } else {
+                Toast.makeText(this, "Gagal mengambil atau menampilkan gambar", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 
@@ -67,6 +78,40 @@ class AddProductInActivity : AppCompatActivity() {
                 startCameraX()
             }
         alertDialog.create().show()
+    }
+
+    private fun showDialogResult(uri: Uri) {
+        val binding = DialogResultScannerLayoutBinding.inflate(layoutInflater)
+        val buttonScan = binding.btnScanOcr
+        val buttonResult = binding.btnSave
+
+        val alertDialog = MaterialAlertDialogBuilder(this)
+            .setView(binding.root)
+            .create()
+
+        binding.ivResultScan.setImageURI(uri)
+
+        buttonScan.setOnClickListener {
+            // TODO: UnImplemented service
+            Toast.makeText(this, "Scanning [TESTING - UNIMPLEMENTED]", Toast.LENGTH_SHORT).show()
+        }
+
+        buttonResult.setOnClickListener {
+            val isExpiredDateValid = Validation.validateIsNotEmpty(
+                "Tanggal Kadaluarsa",
+                binding.layoutExpiredDate,
+                binding.etExpiredDate
+            )
+
+            if (isExpiredDateValid) {
+                expiredDate = binding.etExpiredDate.toString().trim()
+                alertDialog.dismiss()
+            } else {
+                Toast.makeText(this, "Masukan tanggal kadaluarsa", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        alertDialog.show()
     }
 
     companion object {
