@@ -55,8 +55,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ic_place_holder"
-                app:tint="#BABABA" />
+                app:srcCompat="@drawable/ic_place_holder" />
 
             <Button
                 android:id="@+id/btn_add_gambar"
@@ -68,7 +67,8 @@
                 android:background="@drawable/baseline_drive_folder_upload_24"
                 app:layout_constraintBottom_toBottomOf="@id/product_image"
                 app:layout_constraintEnd_toEndOf="@id/product_image"
-                app:tint="@color/black" />
+                app:tint="@color/black"
+                android:focusable="true" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

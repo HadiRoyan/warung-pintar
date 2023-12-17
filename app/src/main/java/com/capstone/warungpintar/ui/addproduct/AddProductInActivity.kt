@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,8 @@ import com.capstone.warungpintar.utils.Validation
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class AddProductInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddProductInBinding
@@ -57,7 +59,6 @@ class AddProductInActivity : AppCompatActivity() {
         }
 
         binding.kodestockEditTextLayout.setOnClickListener {
-            startCameraXForScanning()
             showDialog()
         }
     }
@@ -91,6 +92,7 @@ class AddProductInActivity : AppCompatActivity() {
                 val imageBitmap = result.data?.extras?.get("data") as? Bitmap
                 imageBitmap?.let {
                     currentImageUri = saveImageAndGetUri(it)
+                    binding.btnAddGambar.visibility = View.INVISIBLE
                     binding.ivProductImage.setImageURI(currentImageUri)
                 }
             }
