@@ -29,14 +29,13 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-
 class AddScannerActivity : AppCompatActivity() {
     private var previewView: PreviewView? = null
     private var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>? = null
 
     private var imageCapture: ImageCapture? = null
 
-    //File Elements
+    // File Elements
     private lateinit var outputDirectory: File
 
     @SuppressLint("MissingInflatedId")
@@ -105,13 +104,12 @@ class AddScannerActivity : AppCompatActivity() {
         (findViewById<View>(R.id.borderOverlay) as FrameLayout).addView(borderOverlay)
     }
 
-    //Store the capture image
+    // Store the capture image
     private fun getOutputDirectory(): File {
         val mediaDir = externalMediaDirs.firstOrNull()?.let {
             File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
         }
-        return if (mediaDir != null && mediaDir.exists())
-            mediaDir else filesDir
+        return mediaDir ?: filesDir
     }
 
     private fun takePhoto() {

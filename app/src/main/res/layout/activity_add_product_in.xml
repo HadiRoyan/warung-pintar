@@ -58,18 +58,21 @@
                 app:srcCompat="@drawable/ic_place_holder"
                 app:tint="#BABABA" />
 
-            <ImageView
-                android:id="@+id/floatingActionButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+            <Button
+                android:id="@+id/btn_add_gambar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="20dp"
                 android:clickable="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/baseline_drive_folder_upload_24"
+                android:background="@drawable/baseline_drive_folder_upload_24"
+                app:layout_constraintBottom_toBottomOf="@id/product_image"
+                app:layout_constraintEnd_toEndOf="@id/product_image"
                 app:tint="@color/black" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <TextView
             android:id="@+id/tv_1"
@@ -129,7 +132,6 @@
                 android:layout_height="wrap_content"
                 android:ems="20"
                 android:hint="DD/MM/YY"
-                android:inputType="date"
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -200,7 +202,7 @@
             android:id="@+id/tv_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kode Stock"
+            android:text="Expired"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -266,7 +268,7 @@
                 android:layout_height="wrap_content"
                 android:ems="30"
                 android:hint="Rp."
-                android:inputType="text"
+                android:inputType="number"
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -297,7 +299,7 @@
                 android:layout_height="wrap_content"
                 android:ems="30"
                 android:hint="Rp."
-                android:inputType="text"
+                android:inputType="number"
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>

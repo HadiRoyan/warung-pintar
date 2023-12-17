@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:ems="30"
                 android:hint="Masukkan Harga Jual"
-                android:inputType="text"
+                android:inputType="number"
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
