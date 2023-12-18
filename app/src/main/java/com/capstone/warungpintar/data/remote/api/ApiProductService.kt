@@ -47,4 +47,7 @@ interface ApiProductService {
 
     @GET("api/report/{email}")
     suspend fun getListReports(@Path("email") email: String): ResponseAPI<List<ReportResponse>>
+
+    @GET("api/products/out/{email}")
+    suspend fun getListProductOut(@Path("email") email: String): ResponseAPI<List<String>>
 }

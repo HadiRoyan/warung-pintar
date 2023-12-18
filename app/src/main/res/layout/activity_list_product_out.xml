@@ -35,4 +35,17 @@
         app:layout_constraintTop_toBottomOf="@id/appBarLayout"
         tools:listitem="@layout/activity_list_product_out_row" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"
+        android:elevation="12dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
