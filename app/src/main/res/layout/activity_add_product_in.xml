@@ -337,6 +337,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_upload"
             android:layout_width="130dp"
             android:layout_height="48dp"
             android:layout_marginTop="24dp"

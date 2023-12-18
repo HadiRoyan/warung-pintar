@@ -16,9 +16,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.capstone.warungpintar.R
+import com.capstone.warungpintar.data.remote.model.request.ProductRequest
 import com.capstone.warungpintar.databinding.ActivityAddProductInBinding
 import com.capstone.warungpintar.databinding.DialogResultScannerLayoutBinding
 import com.capstone.warungpintar.ui.addproduct.AddScannerActivity.Companion.CAMERAX_RESULT
+import com.capstone.warungpintar.utils.ImageUtils
 import com.capstone.warungpintar.utils.Validation
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.ByteArrayOutputStream
@@ -38,14 +40,6 @@ class AddProductInActivity : AppCompatActivity() {
         binding = ActivityAddProductInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnAddproductClose.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
-
-        binding.btnAddGambar.setOnClickListener {
-            checkCameraPermissionForImage()
-        }
-
         if (ContextCompat.checkSelfPermission(
                 applicationContext,
                 Manifest.permission.CAMERA
@@ -58,8 +52,68 @@ class AddProductInActivity : AppCompatActivity() {
             )
         }
 
+        setupAction()
+    }
+
+    private fun setupAction() {
+        binding.btnAddproductClose.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        binding.btnAddGambar.setOnClickListener {
+            checkCameraPermissionForImage()
+        }
+
         binding.kodestockEditTextLayout.setOnClickListener {
             showDialog()
+        }
+
+        binding.btnUpload.setOnClickListener {
+            uploadProduct()
+        }
+    }
+
+    private fun uploadProduct() {
+        val isImageNull = currentImageUriForProduct == null
+
+        val namaBarang = binding.namabaranglEditText.text.toString().trim()
+        val tglMasuk = binding.tglmasuklEditText.text.toString().trim()
+        val jmlMasuk = binding.jmlmasuklEditText.text.toString().trim()
+        val stokRendah = binding.lowstockEditText.text.toString().trim()
+        val expiredDate = binding.tvResultscan.text.toString().trim()
+        val hargaBeli = binding.hargabeliEditText.text.toString().trim()
+        val hargaJual = binding.hargajualEditText.text.toString().trim()
+        val kategori = binding.kategoribrgliEditText.text.toString().trim()
+
+        if (isImageNull &&
+            namaBarang.isEmpty() &&
+            tglMasuk.isEmpty() &&
+            jmlMasuk.isEmpty() &&
+            stokRendah.isEmpty() &&
+            expiredDate.isEmpty() &&
+            hargaBeli.isEmpty() &&
+            hargaJual.isEmpty() &&
+            kategori.isEmpty()
+        ) {
+            Toast.makeText(
+                this@AddProductInActivity,
+                "Masukan data dengan lengkap!",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            val imageFile = ImageUtils.uriToFile(currentImageUriForProduct!!, this)
+            val productRequest: ProductRequest = ProductRequest(
+                namaBarang,
+                tglMasuk,
+                kategori,
+                jmlMasuk.toInt(),
+                stokRendah.toInt(),
+                expiredDate,
+                hargaBeli.toInt(),
+                hargaJual.toInt()
+            )
+            Log.d(TAG, "uploadProduct: image file: $imageFile")
+            Log.d(TAG, "uploadProduct: product request: $productRequest")
         }
     }
 
@@ -81,6 +135,8 @@ class AddProductInActivity : AppCompatActivity() {
 
     private fun openCameraForImage() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        currentImageUriForProduct = ImageUtils.getImageUri(this)
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, currentImageUriForProduct)
         if (takePictureIntent.resolveActivity(packageManager) != null) {
             launcherTakePicture.launch(takePictureIntent)
         }
@@ -89,12 +145,23 @@ class AddProductInActivity : AppCompatActivity() {
     private val launcherTakePicture =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                val imageBitmap = result.data?.extras?.get("data") as? Bitmap
-                imageBitmap?.let {
-                    currentImageUriForProduct = saveImageAndGetUri(it)
+                currentImageUriForProduct?.let { uri ->
+                    Log.d(TAG, "uri: $uri")
                     binding.btnAddGambar.visibility = View.INVISIBLE
-                    binding.ivProductImage.setImageURI(currentImageUriForProduct)
-                }
+                    binding.ivProductImage.setImageURI(uri)
+                } ?: Toast.makeText(
+                    this@AddProductInActivity,
+                    "Terjadi kegagalan",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+//                val imageBitmap = result.data?.extras?.get("data") as? Bitmap
+//                imageBitmap?.let {
+//                    currentImageUriForProduct = saveImageAndGetUri(it)
+//                    Log.d(TAG, "image uri for product: $currentImageUriForProduct")
+//                    binding.btnAddGambar.visibility = View.INVISIBLE
+//                    binding.ivProductImage.setImageURI(currentImageUriForProduct)
+//                }
             }
         }
 
@@ -148,15 +215,15 @@ class AddProductInActivity : AppCompatActivity() {
     }
 
     private fun showDialogResult(uri: Uri) {
-        val binding = DialogResultScannerLayoutBinding.inflate(layoutInflater)
-        val buttonScan = binding.btnScanOcr
-        val buttonResult = binding.btnSave
+        val bindingDialog = DialogResultScannerLayoutBinding.inflate(layoutInflater)
+        val buttonScan = bindingDialog.btnScanOcr
+        val buttonResult = bindingDialog.btnSave
 
         val alertDialog = MaterialAlertDialogBuilder(this)
-            .setView(binding.root)
+            .setView(bindingDialog.root)
             .create()
 
-        binding.ivResultScan.setImageURI(uri)
+        bindingDialog.ivResultScan.setImageURI(uri)
 
         buttonScan.setOnClickListener {
             // TODO: UnImplemented service
@@ -170,12 +237,14 @@ class AddProductInActivity : AppCompatActivity() {
         buttonResult.setOnClickListener {
             val isExpiredDateValid = Validation.validateIsNotEmpty(
                 "Tanggal Kadaluarsa",
-                binding.layoutExpiredDate,
-                binding.etExpiredDate
+                bindingDialog.layoutExpiredDate,
+                bindingDialog.etExpiredDate
             )
 
             if (isExpiredDateValid) {
-                expiredDate = binding.etExpiredDate.toString().trim()
+                expiredDate = bindingDialog.etExpiredDate.text.toString().trim()
+                Log.d(TAG, "showDialogResult: expired date $expiredDate")
+                binding.tvResultscan.text = expiredDate
                 alertDialog.dismiss()
             } else {
                 Toast.makeText(this, "Masukan tanggal kadaluarsa", Toast.LENGTH_SHORT).show()
