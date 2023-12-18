@@ -39,7 +39,7 @@ class ProductRepository(
     fun addProduct(
         imageFile: File,
         imageDetail: ProductRequest
-    ): Flow<ResultState<ResponseAPI<String>>> = flow {
+    ): Flow<ResultState<String>> = flow {
         emit(ResultState.Loading)
         val imageFileBody: RequestBody = imageFile.asRequestBody("image/jpeg".toMediaType())
         val gson = Gson()
@@ -50,7 +50,7 @@ class ProductRepository(
         try {
             val response: ResponseAPI<String> =
                 apiProductService.postAddProduct(imageFileBody, imageDescBody)
-            emit(ResultState.Success(response))
+            emit(ResultState.Success(response.data))
         } catch (e: HttpException) {
             val errorMessage: String = if (e.code() >= 500) {
                 "A server error occurred, try again later"

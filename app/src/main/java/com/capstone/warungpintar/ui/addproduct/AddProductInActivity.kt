@@ -11,11 +11,13 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.capstone.warungpintar.R
+import com.capstone.warungpintar.data.ResultState
 import com.capstone.warungpintar.data.remote.model.request.ProductRequest
 import com.capstone.warungpintar.databinding.ActivityAddProductInBinding
 import com.capstone.warungpintar.databinding.DialogResultScannerLayoutBinding
@@ -35,6 +37,10 @@ class AddProductInActivity : AppCompatActivity() {
     private var currentImageUriForProduct: Uri? = null
     private var expiredDate = ""
 
+    private val viewModel: AddProductViewModel by viewModels {
+        AddProductViewModelFactory.getInstance()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddProductInBinding.inflate(layoutInflater)
@@ -53,6 +59,28 @@ class AddProductInActivity : AppCompatActivity() {
         }
 
         setupAction()
+
+        viewModel.resultUpload.observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is ResultState.Loading -> {
+                        showLoading(true)
+                    }
+
+                    is ResultState.Success -> {
+                        showMessage("Berhasil menambahkan barang")
+                        showLoading(false)
+                        finish()
+                    }
+
+                    is ResultState.Error -> {
+                        showMessage("Gagal menambahkan barang")
+                        showLoading(false)
+                        Log.d(TAG, "onCreate: error fetch data from API: ${result.error}")
+                    }
+                }
+            }
+        }
     }
 
     private fun setupAction() {
@@ -95,11 +123,7 @@ class AddProductInActivity : AppCompatActivity() {
             hargaJual.isEmpty() &&
             kategori.isEmpty()
         ) {
-            Toast.makeText(
-                this@AddProductInActivity,
-                "Masukan data dengan lengkap!",
-                Toast.LENGTH_SHORT
-            ).show()
+            showMessage("Masukan data dengan lengkap!")
         } else {
             val imageFile = ImageUtils.uriToFile(currentImageUriForProduct!!, this)
             val productRequest: ProductRequest = ProductRequest(
@@ -114,6 +138,24 @@ class AddProductInActivity : AppCompatActivity() {
             )
             Log.d(TAG, "uploadProduct: image file: $imageFile")
             Log.d(TAG, "uploadProduct: product request: $productRequest")
+
+//            viewModel.upload(imageFile, productRequest)
+
+            // Use this for testing
+            showMessage("Berhasil menambahkan barang [TEST]")
+            finish()
+        }
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(this@AddProductInActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 
