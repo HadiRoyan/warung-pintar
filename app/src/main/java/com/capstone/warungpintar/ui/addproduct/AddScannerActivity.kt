@@ -23,6 +23,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import com.capstone.warungpintar.R
+import com.capstone.warungpintar.utils.ImageUtils
 import com.google.common.util.concurrent.ListenableFuture
 import java.io.File
 import java.text.SimpleDateFormat
@@ -43,7 +44,7 @@ class AddScannerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_scanner)
         previewView = findViewById(R.id.previewView)
-        outputDirectory = getOutputDirectory()
+        outputDirectory = ImageUtils.getOutputDirectory(this)
 
         findViewById<ImageView>(R.id.captureImage).setOnClickListener {
             takePhoto()
@@ -102,14 +103,6 @@ class AddScannerActivity : AppCompatActivity() {
         // Add border overlay
         val borderOverlay = BorderOverlay(this)
         (findViewById<View>(R.id.borderOverlay) as FrameLayout).addView(borderOverlay)
-    }
-
-    // Store the capture image
-    private fun getOutputDirectory(): File {
-        val mediaDir = externalMediaDirs.firstOrNull()?.let {
-            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
-        }
-        return mediaDir ?: filesDir
     }
 
     private fun takePhoto() {

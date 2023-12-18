@@ -29,7 +29,8 @@ import java.util.Locale
 class AddProductInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddProductInBinding
     private val cameraRequest = 1888
-    private var currentImageUri: Uri? = null
+    private var currentImageUriForOCR: Uri? = null
+    private var currentImageUriForProduct: Uri? = null
     private var expiredDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +45,6 @@ class AddProductInActivity : AppCompatActivity() {
         binding.btnAddGambar.setOnClickListener {
             checkCameraPermissionForImage()
         }
-
 
         if (ContextCompat.checkSelfPermission(
                 applicationContext,
@@ -91,9 +91,9 @@ class AddProductInActivity : AppCompatActivity() {
             if (result.resultCode == RESULT_OK) {
                 val imageBitmap = result.data?.extras?.get("data") as? Bitmap
                 imageBitmap?.let {
-                    currentImageUri = saveImageAndGetUri(it)
+                    currentImageUriForProduct = saveImageAndGetUri(it)
                     binding.btnAddGambar.visibility = View.INVISIBLE
-                    binding.ivProductImage.setImageURI(currentImageUri)
+                    binding.ivProductImage.setImageURI(currentImageUriForProduct)
                 }
             }
         }
@@ -131,13 +131,12 @@ class AddProductInActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == CAMERAX_RESULT) {
-            currentImageUri =
+            currentImageUriForOCR =
                 it.data?.getStringExtra(AddScannerActivity.EXTRA_CAMERAX_IMAGE)?.toUri()
 
-            if (currentImageUri != null) {
-                binding.ivProductImage.setImageURI(currentImageUri)
-                showDialogResult(currentImageUri!!)
-                Log.d(TAG, "image uri: ${currentImageUri.toString()}")
+            if (currentImageUriForOCR != null) {
+                showDialogResult(currentImageUriForOCR!!)
+                Log.d(TAG, "image uri: ${currentImageUriForOCR.toString()}")
             } else {
                 Toast.makeText(
                     this,
