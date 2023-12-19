@@ -57,7 +57,11 @@ class NotificationAdapter :
     class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(message: NotificationResponse) {
             if (message.type.contains("low", ignoreCase = true)) {
-                val description = itemView.context.getString(R.string.desc_notification_low_stock)
+                val description = itemView.context.getString(
+                    R.string.desc_notification_low_stock,
+                    message.storeName,
+                    message.productName
+                )
 
                 itemView.findViewById<TextView>(R.id.tv_title_notification_item).text = "Low Stock"
                 itemView.findViewById<TextView>(R.id.tv_description_notification_item).text =
@@ -66,7 +70,11 @@ class NotificationAdapter :
                     .setImageResource(R.drawable.img_notif_lows_stock)
             } else if (message.type.contains("expired", ignoreCase = true)) {
                 val description =
-                    itemView.context.getString(R.string.desc_notification_expired_stock)
+                    itemView.context.getString(
+                        R.string.desc_notification_expired_stock,
+                        message.storeName,
+                        message.productName
+                    )
 
                 itemView.findViewById<TextView>(R.id.tv_title_notification_item).text =
                     "Expired Stock"

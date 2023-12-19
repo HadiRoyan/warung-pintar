@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Warung Pintar</string>
     <string name="desc_notification_low_stock">Halo %s ! Jumlah stok %s saat ini rendah. Mohon segera melakukan restock.</string>
-    <string name="desc_notification_expired_stock">"Halo % ! Produk %s anda telah mencapai batas tanggal kedaluwarsa.</string>
+    <string name="desc_notification_expired_stock">"Halo %s ! Produk %s anda telah mencapai batas tanggal kedaluwarsa.</string>
     <string name="default_value_amount_history">0</string>
     <string name="ocr_information_dialog">Fitur OCR (Teknologi untuk mengesktrak tesk dari gambar) masih dalam tahap pengembangan.
     pastikan angka terbaca jelas di dalam layar garis kotak kuning</string>

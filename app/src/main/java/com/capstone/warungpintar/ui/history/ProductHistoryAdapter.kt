@@ -59,16 +59,16 @@ class ProductHistoryAdapter :
                 with(binding) {
                     imgHistoryProduct.setImageResource(R.drawable.img_product_out)
                     tvTitleHistoryItem.text = data.productName
-                    tvPriceItem.text = "Harga Beli ${data.price}"
-                    tvDateItem.text = "Tanggal Masuk ${data.date}"
+                    tvPriceItem.text = "Harga Jual ${data.price}"
+                    tvDateItem.text = "Tanggal Keluar ${data.date}"
                     tvAmountItem.text = data.amount.toString()
                 }
             } else if (data.type.contentEquals("masuk", ignoreCase = true)) {
                 with(binding) {
                     imgHistoryProduct.setImageResource(R.drawable.img_product_in)
                     tvTitleHistoryItem.text = data.productName
-                    tvPriceItem.text = "Harga Jual ${data.price}"
-                    tvDateItem.text = "Tanggal Keluar ${data.date}"
+                    tvPriceItem.text = "Harga Beli ${data.price}"
+                    tvDateItem.text = "Tanggal Masuk ${data.date}"
                     tvAmountItem.text = data.amount.toString()
                 }
             }

@@ -34,7 +34,7 @@
             app:layout_constraintStart_toStartOf="@id/tv_product_name_row"
             app:layout_constraintTop_toBottomOf="@id/tv_product_name_row"
             android:layout_marginTop="8dp"
-            tools:text="Harga Beli:" />
+            android:text="Harga Beli:" />
 
         <TextView
             android:id="@+id/tv_purchase_price_row_value"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/tv_product_name_row"
             app:layout_constraintTop_toBottomOf="@id/tv_purchase_price_row"
-            tools:text="Harga Jual:" />
+            android:text="Harga Jual:" />
 
         <TextView
             android:id="@+id/tv_selling_price_row_value"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/tv_product_name_row"
             app:layout_constraintTop_toBottomOf="@id/tv_selling_price_row"
-            tools:text="Tanggal Keluar:" />
+            android:text="Tanggal Keluar:" />
 
         <TextView
             android:id="@+id/tv_exit_date_row_value"
