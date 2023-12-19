@@ -29,6 +29,10 @@ import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import android.app.DatePickerDialog
+import android.widget.DatePicker
+import java.util.Calendar
+
 
 class AddProductInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddProductInBinding
@@ -94,6 +98,28 @@ class AddProductInActivity : AppCompatActivity() {
 
         binding.kodestockEditTextLayout.setOnClickListener {
             showDialog()
+        }
+
+        binding.tglmasuklEditText.setOnClickListener {
+            val year = Calendar.getInstance().get(Calendar.YEAR)
+            val month = Calendar.getInstance().get(Calendar.MONTH)
+            val dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(
+                this,
+                { view, year, month, dayOfMonth ->
+                    val selectedDate = "$dayOfMonth/${month + 1}/$year"
+
+                    binding.tglmasuklEditText.setText(selectedDate)
+                },
+                year,
+                month,
+                dayOfMonth
+            )
+
+            datePickerDialog.datePicker.minDate = System.currentTimeMillis()
+
+            datePickerDialog.show()
         }
 
         binding.btnUpload.setOnClickListener {
@@ -275,6 +301,8 @@ class AddProductInActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+
+
 
         buttonResult.setOnClickListener {
             val isExpiredDateValid = Validation.validateIsNotEmpty(
