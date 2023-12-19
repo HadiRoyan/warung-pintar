@@ -12,13 +12,13 @@ object Validation {
     ): Boolean {
         if (emailEditText.text.toString().trim { it <= ' ' }.isEmpty()) {
             emailLayout.isErrorEnabled = false
-            emailLayout.error = "Email cannot be empty"
+            emailLayout.error = "Email tidak boleh kosong"
             return false
         } else {
             val emailId = emailEditText.text.toString()
             val isValid = Patterns.EMAIL_ADDRESS.matcher(emailId).matches()
             if (!isValid) {
-                emailLayout.error = "Invalid Email address, ex: abc@example.com"
+                emailLayout.error = "Email tidak valid, ex: abc@example.com"
                 return false
             } else {
                 emailLayout.isErrorEnabled = false
@@ -32,11 +32,11 @@ object Validation {
         passwordEditText: TextInputEditText
     ): Boolean {
         if (passwordEditText.text.toString().trim { it <= ' ' }.isEmpty()) {
-            passwordLayout.error = "Password required"
+            passwordLayout.error = "Diperlukan kata sandi"
             return false
         } else if (passwordEditText.text.toString().length < 8) {
             passwordLayout.errorIconDrawable = null
-            passwordLayout.error = "Password can't be less than 8 digit"
+            passwordLayout.error = "Kata sandi tidak boleh kurang dari 8 digit"
             return false
         } else {
             passwordLayout.isErrorEnabled = false
@@ -52,12 +52,12 @@ object Validation {
         val password = passwordEditText.text.toString()
         val confirmPassword = confirmPasswordEditText.text.toString()
         if (confirmPasswordEditText.text.toString().trim { it <= ' ' }.isEmpty()) {
-            confirmPasswordLayout.error = "Rewrite Password"
+            confirmPasswordLayout.error = "Tulis Ulang Kata Sandi"
             return false
         } else {
             if (password != confirmPassword) {
                 confirmPasswordLayout.errorIconDrawable = null
-                confirmPasswordLayout.error = "Wrong confirm password"
+                confirmPasswordLayout.error = "Konfirmasi kata sandi salah"
                 return false
             } else {
                 confirmPasswordLayout.isErrorEnabled = false
@@ -72,13 +72,11 @@ object Validation {
         editText: TextInputEditText
     ): Boolean {
         if (editText.text.toString().trim().isEmpty()) {
-            layout.error = "$name cannot be empty"
+            layout.error = "$name tidak boleh kosong"
             return false
         } else {
             layout.isErrorEnabled = false
         }
         return true
     }
-
-//test
 }
