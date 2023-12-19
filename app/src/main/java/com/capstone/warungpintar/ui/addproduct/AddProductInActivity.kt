@@ -1,9 +1,9 @@
 package com.capstone.warungpintar.ui.addproduct
 
 import android.Manifest
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -25,10 +25,8 @@ import com.capstone.warungpintar.ui.addproduct.AddScannerActivity.Companion.CAME
 import com.capstone.warungpintar.utils.ImageUtils
 import com.capstone.warungpintar.utils.Validation
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.io.ByteArrayOutputStream
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.Calendar
+
 
 class AddProductInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddProductInBinding
@@ -94,6 +92,28 @@ class AddProductInActivity : AppCompatActivity() {
 
         binding.kodestockEditTextLayout.setOnClickListener {
             showDialog()
+        }
+
+        binding.tglmasuklEditText.setOnClickListener {
+            val year = Calendar.getInstance().get(Calendar.YEAR)
+            val month = Calendar.getInstance().get(Calendar.MONTH)
+            val dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(
+                this,
+                { view, year, month, dayOfMonth ->
+                    val selectedDate = "$dayOfMonth/${month + 1}/$year"
+
+                    binding.tglmasuklEditText.setText(selectedDate)
+                },
+                year,
+                month,
+                dayOfMonth
+            )
+
+            datePickerDialog.datePicker.minDate = System.currentTimeMillis()
+
+            datePickerDialog.show()
         }
 
         binding.btnUpload.setOnClickListener {
@@ -196,36 +216,17 @@ class AddProductInActivity : AppCompatActivity() {
                     "Terjadi kegagalan",
                     Toast.LENGTH_SHORT
                 ).show()
-
-//                val imageBitmap = result.data?.extras?.get("data") as? Bitmap
-//                imageBitmap?.let {
-//                    currentImageUriForProduct = saveImageAndGetUri(it)
-//                    Log.d(TAG, "image uri for product: $currentImageUriForProduct")
-//                    binding.btnAddGambar.visibility = View.INVISIBLE
-//                    binding.ivProductImage.setImageURI(currentImageUriForProduct)
-//                }
             }
         }
-
-    private fun saveImageAndGetUri(bitmap: Bitmap): Uri {
-        val bytes = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val timeStamp: String =
-            SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val path = MediaStore.Images.Media.insertImage(
-            contentResolver,
-            bitmap,
-            "IMG_$timeStamp",
-            null
-        )
-        return Uri.parse(path)
-    }
 
     private fun showDialog() {
         val alertDialog = MaterialAlertDialogBuilder(this)
         alertDialog.setTitle("Informasi!")
             .setMessage(getString(R.string.ocr_information_dialog))
-            .setPositiveButton("Mengerti dan Lanjutkan") { _, _ ->
+            .setNeutralButton("Masukan Manual") { _, _ ->
+                showDialogResult(null)
+            }
+            .setPositiveButton("Lanjutkan") { _, _ ->
                 startCameraXForScanning()
             }
         alertDialog.create().show()
@@ -256,7 +257,7 @@ class AddProductInActivity : AppCompatActivity() {
         }
     }
 
-    private fun showDialogResult(uri: Uri) {
+    private fun showDialogResult(uri: Uri?) {
         val bindingDialog = DialogResultScannerLayoutBinding.inflate(layoutInflater)
         val buttonScan = bindingDialog.btnScanOcr
         val buttonResult = bindingDialog.btnSave
@@ -265,7 +266,9 @@ class AddProductInActivity : AppCompatActivity() {
             .setView(bindingDialog.root)
             .create()
 
-        bindingDialog.ivResultScan.setImageURI(uri)
+        uri?.let {
+            bindingDialog.ivResultScan.setImageURI(it)
+        }
 
         buttonScan.setOnClickListener {
             // TODO: UnImplemented service
@@ -275,6 +278,7 @@ class AddProductInActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+
 
         buttonResult.setOnClickListener {
             val isExpiredDateValid = Validation.validateIsNotEmpty(

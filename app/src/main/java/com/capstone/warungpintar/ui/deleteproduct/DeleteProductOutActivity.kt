@@ -1,5 +1,6 @@
 package com.capstone.warungpintar.ui.deleteproduct
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,6 +11,9 @@ import com.capstone.warungpintar.data.ResultState
 import com.capstone.warungpintar.data.remote.model.request.DeleteProductRequest
 import com.capstone.warungpintar.databinding.ActivityDeleteProductOutBinding
 import com.capstone.warungpintar.utils.Validation
+import java.util.Calendar
+import android.widget.DatePicker
+import java.text.SimpleDateFormat
 
 class DeleteProductOutActivity : AppCompatActivity() {
 
@@ -53,6 +57,28 @@ class DeleteProductOutActivity : AppCompatActivity() {
     private fun setupActions() {
         binding.btnAddproductClose.setOnClickListener { _ ->
             onBackPressedDispatcher.onBackPressed()
+        }
+
+        binding.tglkeluarEditText.setOnClickListener {
+            val year = Calendar.getInstance().get(Calendar.YEAR)
+            val month = Calendar.getInstance().get(Calendar.MONTH)
+            val dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(
+                this,
+                { view, year, month, dayOfMonth ->
+                    val selectedDate = "$dayOfMonth/${month + 1}/$year"
+
+                    binding.tglkeluarEditText.setText(selectedDate)
+                },
+                year,
+                month,
+                dayOfMonth
+            )
+
+            datePickerDialog.datePicker.minDate = System.currentTimeMillis()
+
+            datePickerDialog.show()
         }
 
         binding.btnDeleteProduct.setOnClickListener { _ ->

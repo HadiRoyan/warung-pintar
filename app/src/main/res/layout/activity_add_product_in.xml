@@ -132,6 +132,7 @@
                 android:layout_height="wrap_content"
                 android:ems="20"
                 android:hint="DD/MM/YY"
+                android:drawableEnd="@drawable/ic_access_time_24"
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
