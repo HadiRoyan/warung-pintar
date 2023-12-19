@@ -13,6 +13,7 @@ import com.capstone.warungpintar.R
 import com.capstone.warungpintar.data.ResultState
 import com.capstone.warungpintar.data.remote.model.request.RegisterRequest
 import com.capstone.warungpintar.databinding.ActivityRegisterBinding
+import com.capstone.warungpintar.ui.dashboard.DashboardProduct
 import com.capstone.warungpintar.ui.login.LoginActivity
 import com.capstone.warungpintar.utils.Validation
 import com.google.android.material.textfield.TextInputEditText
@@ -44,8 +45,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupViews()
         setupAction()
-
-        viewModel.registerResult.observe(this) { result ->
+        viewModel.registerFirebaseResult.observe(this) { result ->
             if (result != null) {
                 when (result) {
                     is ResultState.Loading -> {
@@ -54,9 +54,16 @@ class RegisterActivity : AppCompatActivity() {
 
                     is ResultState.Success -> {
                         showLoading(false)
-                        showMessage("berhasil mendaftar, silakan masuk")
-                        gotoLogin()
-                        viewModel.registerResult.removeObservers(this)
+                        showMessage(result.data)
+                        val email = result.data
+                        if (email.isNotEmpty()) {
+                            val intent = Intent(this@RegisterActivity, DashboardProduct::class.java)
+                            intent.putExtra("email", email)
+                            startActivity(intent)
+                            viewModel.registerResult.removeObservers(this)
+                        } else {
+                            showMessage("Terjadi kesalahan, silahkan coba lagi nanti")
+                        }
                     }
 
                     is ResultState.Error -> {
@@ -124,9 +131,12 @@ class RegisterActivity : AppCompatActivity() {
                 )
                 // viewModel.register(registerRequest)
 
+                // This feature is already running (register to Firebase)
+                viewModel.registerToFirebase(email, password)
+
                 // Move directly to the LoginActivity for testing
-                gotoLogin()
-                showMessage("[TESTING] berhasil mendaftar, silakan masuk")
+//                gotoLogin()
+//                showMessage("[TESTING] berhasil mendaftar, silakan masuk")
             } else {
                 showMessage("Masukan valid data")
             }
@@ -220,5 +230,9 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         override fun afterTextChanged(editable: Editable) {}
+    }
+
+    companion object {
+        private const val TAG = "RegisterActivity"
     }
 }

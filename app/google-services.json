@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "588900411101",
+    "project_id": "warungpintar-a294c",
+    "storage_bucket": "warungpintar-a294c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588900411101:android:ffa7996976358e3ace9d34",
+        "android_client_info": {
+          "package_name": "com.capstone.warungpintar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsU28P6eWPlaRlDu5cqM_3V2mLdbUew_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

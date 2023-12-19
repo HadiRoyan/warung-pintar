@@ -20,7 +20,7 @@ data class ProductRequest(
     val lowStock: Int,
 
     @field:SerializedName("code_stock")
-    val codeStock: String,
+    val expiredDate: String,
 
     @field:SerializedName("purchase_price")
     val purchasePrice: Int,

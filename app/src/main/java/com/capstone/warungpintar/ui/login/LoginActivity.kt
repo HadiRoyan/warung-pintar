@@ -13,6 +13,7 @@ import com.capstone.warungpintar.R
 import com.capstone.warungpintar.data.ResultState
 import com.capstone.warungpintar.databinding.ActivityLoginBinding
 import com.capstone.warungpintar.ui.dashboard.DashboardProduct
+import com.capstone.warungpintar.ui.forgotpassword.ForgotPasswordActivity
 import com.capstone.warungpintar.ui.register.RegisterActivity
 import com.capstone.warungpintar.utils.Validation
 import com.google.android.material.textfield.TextInputEditText
@@ -38,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
         setupViews()
         setupAction()
 
-        viewModel.loginResult.observe(this) { result ->
+        viewModel.loginFirebaseResult.observe(this) { result ->
             if (result != null) {
                 when (result) {
                     is ResultState.Loading -> {
@@ -47,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
 
                     is ResultState.Success -> {
                         showLoading(false)
-                        Log.d(TAG, "login success: ${result.data.token}")
+//                        Log.d(TAG, "login success: ${result.data.token}")
 
                         startActivity(Intent(this@LoginActivity, DashboardProduct::class.java))
                         finish()
@@ -56,6 +57,7 @@ class LoginActivity : AppCompatActivity() {
 
                     is ResultState.Error -> {
                         showLoading(false)
+                        showMessage(result.error)
                         Log.d(TAG, "login error: ${result.error}")
                     }
                 }
@@ -85,6 +87,10 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.tvForgetPassword.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java))
+        }
+
         binding.btnLogin.setOnClickListener { _ ->
             val isEmailValid = Validation.validateEmail(emailLayout, emailEditText)
             val isPasswordValid = Validation.validatePassword(passwordLayout, passwordEditText)
@@ -96,9 +102,14 @@ class LoginActivity : AppCompatActivity() {
 //                    passwordEditText.text.toString().trim()
 //                )
 
+                viewModel.loginWithFirebase(
+                    emailEditText.text.toString().trim(),
+                    passwordEditText.text.toString().trim()
+                )
+
                 // Use this for testing
-                showMessage("Login Success [Testing]")
-                startActivity(Intent(this@LoginActivity, DashboardProduct::class.java))
+//                showMessage("Login Success [Testing]")
+//                startActivity(Intent(this@LoginActivity, DashboardProduct::class.java))
             } else {
                 showMessage("Email or password cannot be empty")
             }

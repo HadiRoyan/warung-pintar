@@ -4,9 +4,11 @@ import android.util.Log
 import com.capstone.warungpintar.data.ResultState
 import com.capstone.warungpintar.data.model.Product
 import com.capstone.warungpintar.data.remote.api.ApiProductService
+import com.capstone.warungpintar.data.remote.model.request.DeleteProductRequest
 import com.capstone.warungpintar.data.remote.model.request.ProductRequest
 import com.capstone.warungpintar.data.remote.model.response.ErrorResponse
 import com.capstone.warungpintar.data.remote.model.response.HistoryResponse
+import com.capstone.warungpintar.data.remote.model.response.ReportResponse
 import com.capstone.warungpintar.data.remote.model.response.ResponseAPI
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
@@ -37,7 +39,7 @@ class ProductRepository(
     fun addProduct(
         imageFile: File,
         imageDetail: ProductRequest
-    ): Flow<ResultState<ResponseAPI<String>>> = flow {
+    ): Flow<ResultState<String>> = flow {
         emit(ResultState.Loading)
         val imageFileBody: RequestBody = imageFile.asRequestBody("image/jpeg".toMediaType())
         val gson = Gson()
@@ -48,7 +50,7 @@ class ProductRepository(
         try {
             val response: ResponseAPI<String> =
                 apiProductService.postAddProduct(imageFileBody, imageDescBody)
-            emit(ResultState.Success(response))
+            emit(ResultState.Success(response.data))
         } catch (e: HttpException) {
             val errorMessage: String = if (e.code() >= 500) {
                 "A server error occurred, try again later"
@@ -95,11 +97,11 @@ class ProductRepository(
     }
 
 
-    fun getAllProduct(): Flow<ResultState<ResponseAPI<List<Product>>>> = flow {
+    fun getAllProduct(): Flow<ResultState<List<Product>>> = flow {
         emit(ResultState.Loading)
         try {
             val response: ResponseAPI<List<Product>> = apiProductService.getAllProduct()
-            emit(ResultState.Success(response))
+            emit(ResultState.Success(response.data))
         } catch (e: HttpException) {
             val errorMessage: String = if (e.code() >= 500) {
                 "A server error occurred, try again later"
@@ -119,11 +121,11 @@ class ProductRepository(
         }
     }
 
-    fun getListCategoryProduct(): Flow<ResultState<ResponseAPI<List<String>>>> = flow {
+    fun getListCategoryProduct(): Flow<ResultState<List<String>>> = flow {
         emit(ResultState.Loading)
         try {
             val response: ResponseAPI<List<String>> = apiProductService.getListCategoryProduct()
-            emit(ResultState.Success(response))
+            emit(ResultState.Success(response.data))
         } catch (e: HttpException) {
             val errorMessage: String = if (e.code() >= 500) {
                 "A server error occurred, try again later"
@@ -164,6 +166,86 @@ class ProductRepository(
             emit(ResultState.Error("Request Timeout"))
         } catch (e: Exception) {
             Log.d(TAG, "get all history error: ${e.message}")
+            emit(ResultState.Error("Something Wrong, please try again later"))
+        }
+    }
+
+    fun deleteProduct(
+        email: String,
+        productName: String,
+        data: DeleteProductRequest
+    ): Flow<ResultState<String>> = flow {
+        emit(ResultState.Loading)
+
+        try {
+            val response: ResponseAPI<String> =
+                apiProductService.deleteProduct(email, productName, data)
+            emit(ResultState.Success(response.data))
+        } catch (e: HttpException) {
+            val errorMessage: String = if (e.code() >= 500) {
+                "A server error occurred, try again later"
+            } else {
+                val jsonString = e.response()?.errorBody()?.string()
+                val error: ErrorResponse = Gson().fromJson(jsonString, ErrorResponse::class.java)
+                error.message
+            }
+            emit(ResultState.Error(errorMessage))
+            Log.d(TAG, "Delete Product error: ${e.message}, with response $errorMessage")
+        } catch (e: SocketTimeoutException) {
+            Log.d(TAG, "Delete Product error: ${e.message}")
+            emit(ResultState.Error("Request Timeout"))
+        } catch (e: Exception) {
+            Log.d(TAG, "Delete Product error: ${e.message}")
+            emit(ResultState.Error("Something Wrong, please try again later"))
+        }
+    }
+
+    fun getListReport(email: String): Flow<ResultState<List<ReportResponse>>> = flow {
+        emit(ResultState.Loading)
+
+        try {
+            val response: ResponseAPI<List<ReportResponse>> =
+                apiProductService.getListReports(email)
+            emit(ResultState.Success(response.data))
+        } catch (e: HttpException) {
+            val errorMessage: String = if (e.code() >= 500) {
+                "A server error occurred, try again later"
+            } else {
+                val jsonString = e.response()?.errorBody()?.string()
+                val error: ErrorResponse = Gson().fromJson(jsonString, ErrorResponse::class.java)
+                error.message
+            }
+            emit(ResultState.Error(errorMessage))
+            Log.d(TAG, "Get report error: ${e.message}, with response $errorMessage")
+        } catch (e: SocketTimeoutException) {
+            Log.d(TAG, "Get report error: ${e.message}")
+            emit(ResultState.Error("Request Timeout"))
+        } catch (e: Exception) {
+            Log.d(TAG, "Get report error: ${e.message}")
+            emit(ResultState.Error("Something Wrong, please try again later"))
+        }
+    }
+
+    fun getListProductOut(email: String): Flow<ResultState<List<String>>> = flow {
+        try {
+            val response: ResponseAPI<List<String>> =
+                apiProductService.getListProductOut(email)
+            emit(ResultState.Success(response.data))
+        } catch (e: HttpException) {
+            val errorMessage: String = if (e.code() >= 500) {
+                "A server error occurred, try again later"
+            } else {
+                val jsonString = e.response()?.errorBody()?.string()
+                val error: ErrorResponse = Gson().fromJson(jsonString, ErrorResponse::class.java)
+                error.message
+            }
+            emit(ResultState.Error(errorMessage))
+            Log.d(TAG, "Get list product out error: ${e.message}, with response $errorMessage")
+        } catch (e: SocketTimeoutException) {
+            Log.d(TAG, "Get list product out error: ${e.message}")
+            emit(ResultState.Error("Request Timeout"))
+        } catch (e: Exception) {
+            Log.d(TAG, "Get list product out error: ${e.message}")
             emit(ResultState.Error("Something Wrong, please try again later"))
         }
     }
