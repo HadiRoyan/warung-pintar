@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import uvicorn
 
 app = FastAPI()
 @app.get("/")
@@ -89,3 +90,7 @@ def crop_processor(model_path, image_path):
 
   return result_prediction
 
+if __name__ == "__main__":
+    config = uvicorn.Config("crop_processor:app", port=8081, log_level="info")
+    server = uvicorn.Server(config)
+    server.run()
