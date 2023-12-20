@@ -3,6 +3,7 @@ package com.capstone.warungpintar.ui.history
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,14 +44,17 @@ class ProductHistoryActivity : AppCompatActivity() {
                     }
 
                     is ResultState.Error -> {
-                        // TODO: handle actions when errors occur
+                        Toast.makeText(
+                            this@ProductHistoryActivity,
+                            "Terjadi kegagalan, coba lagi",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        showLoading(false)
                         Log.d(TAG, "onCreate: error fetch data from API: ${result.error}")
                     }
                 }
             }
         }
-
-        // TODO: create ViewModel
     }
 
     private fun showLoading(isLoading: Boolean) {

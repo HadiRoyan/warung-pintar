@@ -1,6 +1,9 @@
 package com.capstone.warungpintar.ui.notification
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,20 +28,26 @@ class NotificationActivity : AppCompatActivity() {
         setupView()
         viewModel.getListNotification(email)
 
-        // TODO: create ViewModel
         viewModel.requestResult.observe(this) { result ->
             if (result != null) {
                 when (result) {
                     is ResultState.Loading -> {
-                        // TODO: create loading animation
+                        showLoading(true)
                     }
 
                     is ResultState.Success -> {
                         adapter.submitList(result.data)
+                        showLoading(false)
                     }
 
                     is ResultState.Error -> {
-                        // TODO: handle actions when errors occur
+                        Toast.makeText(
+                            this@NotificationActivity,
+                            "Terjadi kegagalan, coba lagi",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        showLoading(false)
+                        Log.d(TAG, "onCreate: error fetch data from API: ${result.error}")
                     }
                 }
             }
@@ -49,10 +58,22 @@ class NotificationActivity : AppCompatActivity() {
         }
     }
 
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
+
     private fun setupView() {
         adapter = NotificationAdapter()
         val recyclerView = binding.rvNotification
         recyclerView.layoutManager = LinearLayoutManager(this@NotificationActivity)
         recyclerView.adapter = adapter
+    }
+
+    companion object {
+        private const val TAG = "NotificationActivity"
     }
 }
