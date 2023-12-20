@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.capstone.warungpintar.R
 import com.capstone.warungpintar.data.ResultState
 import com.capstone.warungpintar.data.model.Product
 import com.capstone.warungpintar.databinding.ActivityDetailProductBinding
@@ -29,7 +28,6 @@ class DetailProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.statusBarColor = getColor(R.color.light_blue)
         setTopBar()
 
         val product = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

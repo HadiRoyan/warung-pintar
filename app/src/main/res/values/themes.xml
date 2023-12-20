@@ -17,6 +17,12 @@
         <item name="android:statusBarColor">@color/white</item>
     </style>
 
+    <style name="DetailProductTheme" parent="Base.Theme.WarungPintar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@color/light_blue</item>
+    </style>
+
     <style name="Theme.WarungPintar.ToolBar" parent="@style/Widget.MaterialComponents.Toolbar">
         <item name="iconTint">@color/white</item>
         <item name="titleTextColor">@color/white</item>
