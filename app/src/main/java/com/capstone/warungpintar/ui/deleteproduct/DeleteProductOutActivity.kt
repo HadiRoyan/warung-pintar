@@ -12,8 +12,6 @@ import com.capstone.warungpintar.data.remote.model.request.DeleteProductRequest
 import com.capstone.warungpintar.databinding.ActivityDeleteProductOutBinding
 import com.capstone.warungpintar.utils.Validation
 import java.util.Calendar
-import android.widget.DatePicker
-import java.text.SimpleDateFormat
 
 class DeleteProductOutActivity : AppCompatActivity() {
 
@@ -45,9 +43,9 @@ class DeleteProductOutActivity : AppCompatActivity() {
                     }
 
                     is ResultState.Error -> {
-                        // TODO: handle actions when errors occur
-                        Log.d(TAG, "result delete: error fetch data from API: ${result.error}")
-                        showMessage(result.error)
+                        showMessage("Terjadi kegagalan, coba lagi nanti")
+                        showLoading(false)
+                        Log.d(TAG, "onCreate: error fetch data from API: ${result.error}")
                     }
                 }
             }

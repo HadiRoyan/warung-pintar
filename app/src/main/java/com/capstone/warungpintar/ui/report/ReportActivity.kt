@@ -39,11 +39,10 @@ class ReportActivity : AppCompatActivity() {
         if (email.isNotEmpty()) {
             viewModel.getListReport(email)
         } else {
-            Toast.makeText(this, "Something failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Terjadi kegagalan", Toast.LENGTH_SHORT).show()
             Log.d(TAG, "onCreate: email is null, cannot fetch data")
         }
 
-        // TODO: finish actions
         viewModel.listReport.observe(this) { result ->
             if (result != null) {
                 when (result) {
@@ -58,8 +57,12 @@ class ReportActivity : AppCompatActivity() {
                     }
 
                     is ResultState.Error -> {
-                        // TODO: handle actions when errors occur
                         showLoading(false)
+                        Toast.makeText(
+                            this@ReportActivity,
+                            "Terjadi kegagalan, coba lagi",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         Log.d(TAG, "get reports: error fetch data from API: ${result.error}")
                     }
                 }

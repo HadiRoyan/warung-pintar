@@ -3,6 +3,8 @@ package com.capstone.warungpintar.ui.detailproduct
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -47,23 +49,27 @@ class DetailProductActivity : AppCompatActivity() {
         } else {
             // Cannot display detail product
             Log.d(TAG, "onCreate: failed to display detail product because product is null")
+            showMessage("Terjadi kegagalan")
+            finish()
         }
 
         viewModel.resultDetail.observe(this) { result ->
             if (result != null) {
                 when (result) {
                     is ResultState.Loading -> {
-                        // TODO: create loading animation
+                        showLoading(true)
                     }
 
                     is ResultState.Success -> {
                         val data = result.data
                         setDetailView(data)
+                        showLoading(false)
                     }
 
                     is ResultState.Error -> {
-                        // TODO: handle actions when errors occur
                         product?.let { setDetailView(it) }
+                        showLoading(false)
+                        showMessage("Gagal mendapatkan data barang terbaru")
                     }
                 }
             }
@@ -92,6 +98,18 @@ class DetailProductActivity : AppCompatActivity() {
     private fun setTopBar() {
         binding.topAppBar.setNavigationOnClickListener { _ ->
             onBackPressedDispatcher.onBackPressed()
+        }
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(this@DetailProductActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 }

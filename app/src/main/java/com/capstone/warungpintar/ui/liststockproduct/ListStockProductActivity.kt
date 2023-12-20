@@ -3,6 +3,7 @@ package com.capstone.warungpintar.ui.liststockproduct
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,7 +40,11 @@ class ListStockProductActivity : AppCompatActivity() {
                     }
 
                     is ResultState.Error -> {
-                        // TODO: handle actions when errors occur
+                        Toast.makeText(
+                            this@ListStockProductActivity,
+                            "Terjadi kegagalan, coba lagi",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         showLoading(false)
                         Log.d(TAG, "onCreate: error fetch data from API: ${result.error}")
                     }
