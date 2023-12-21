@@ -52,7 +52,8 @@
         app:boxCornerRadiusBottomEnd="45dp"
         app:boxCornerRadiusBottomStart="45dp"
         app:boxCornerRadiusTopEnd="45dp"
-        app:boxCornerRadiusTopStart="45dp">
+        app:boxCornerRadiusTopStart="45dp"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edPassword"
