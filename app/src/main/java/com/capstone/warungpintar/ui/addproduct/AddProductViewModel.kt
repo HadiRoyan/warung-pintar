@@ -17,7 +17,7 @@ class AddProductViewModel(private val productRepository: ProductRepository) : Vi
 
     fun upload(imageFile: File, product: ProductRequest) {
         viewModelScope.launch {
-            productRepository.addProduct(imageFile, product).collect { result ->
+            productRepository.postProduct(imageFile, product).collect { result ->
                 _resultUpload.value = result
             }
         }
