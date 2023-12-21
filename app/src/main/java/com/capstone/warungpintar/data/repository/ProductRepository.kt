@@ -36,6 +36,32 @@ class ProductRepository(
             }.also { instance = it }
     }
 
+    fun getExpiredFromOCR(imageFile: File): Flow<ResultState<String>> = flow {
+        emit(ResultState.Loading)
+        val imageFileBody: RequestBody = imageFile.asRequestBody("image/jpeg".toMediaType())
+
+        try {
+            val response = apiProductService.getExpiredDateFromOCR(imageFileBody)
+            emit(ResultState.Success(response.data))
+        } catch (e: HttpException) {
+            val errorMessage: String = if (e.code() >= 500) {
+                "A server error occurred, try again later"
+            } else {
+                val jsonString = e.response()?.errorBody()?.string()
+                val error: ErrorResponse = Gson().fromJson(jsonString, ErrorResponse::class.java)
+                error.message
+            }
+            emit(ResultState.Error(errorMessage))
+            Log.d(TAG, "add product error: ${e.message}, with response $errorMessage")
+        } catch (e: SocketTimeoutException) {
+            Log.d(TAG, "add product error: ${e.message}")
+            emit(ResultState.Error("Request Timeout"))
+        } catch (e: Exception) {
+            Log.d(TAG, "add product error: ${e.message}")
+            emit(ResultState.Error("Something Wrong, please try again later"))
+        }
+    }
+
     fun addProduct(
         imageFile: File,
         imageDetail: ProductRequest

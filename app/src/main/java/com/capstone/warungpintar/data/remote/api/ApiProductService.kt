@@ -50,4 +50,9 @@ interface ApiProductService {
 
     @GET("api/products/out/{email}")
     suspend fun getListProductOut(@Path("email") email: String): ResponseAPI<List<String>>
+
+
+    @POST("api/perform-ocr")
+    @Multipart
+    suspend fun getExpiredDateFromOCR(@Part("imageDate") imageData: RequestBody): ResponseAPI<String>
 }

@@ -79,6 +79,8 @@ class AddProductInActivity : AppCompatActivity() {
                 }
             }
         }
+
+
     }
 
     private fun setupAction() {
@@ -159,7 +161,7 @@ class AddProductInActivity : AppCompatActivity() {
             Log.d(TAG, "uploadProduct: image file: $imageFile")
             Log.d(TAG, "uploadProduct: product request: $productRequest")
 
-//            viewModel.upload(imageFile, productRequest)
+            viewModel.upload(imageFile, productRequest)
 
             // Use this for testing
             showMessage("Berhasil menambahkan barang [TEST]")
@@ -271,10 +273,12 @@ class AddProductInActivity : AppCompatActivity() {
         }
 
         buttonScan.setOnClickListener {
-            // TODO: UnImplemented service
-            Toast.makeText(
+            currentImageUriForOCR?.let {
+                val imageFile = ImageUtils.uriToFile(it, this)
+                viewModel.performOCR(imageFile)
+            } ?: Toast.makeText(
                 this,
-                "Scanning [TESTING - UNIMPLEMENTED]",
+                "Gambar kosong, Masukan tanggal secara manual",
                 Toast.LENGTH_SHORT
             ).show()
         }
