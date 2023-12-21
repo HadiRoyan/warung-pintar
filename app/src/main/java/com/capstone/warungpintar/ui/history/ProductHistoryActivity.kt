@@ -1,5 +1,6 @@
 package com.capstone.warungpintar.ui.history
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,13 +10,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.warungpintar.data.ResultState
 import com.capstone.warungpintar.databinding.ActivityProductHistoryBinding
+import com.capstone.warungpintar.ui.welcoming.WelcomeActivity
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 class ProductHistoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductHistoryBinding
     private lateinit var adapter: ProductHistoryAdapter
+    private lateinit var auth: FirebaseAuth
 
-    // TODO: use the email of the currently logged-in user
     private var email = ""
 
     private val viewModel: ProductHistoryViewModel by viewModels {
@@ -26,9 +31,20 @@ class ProductHistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProductHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        auth = Firebase.auth
+        email = auth.currentUser?.email ?: ""
         setTopBar()
         setupView()
-        viewModel.getListHistory(email)
+
+        if (email.isNotEmpty()) {
+            viewModel.getListHistory(email)
+        } else {
+            Toast.makeText(this, "Sesi anda telah habis", Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "onCreate: email is null or empty, cannot get history")
+            auth.signOut()
+            startActivity(Intent(this@ProductHistoryActivity, WelcomeActivity::class.java))
+            finish()
+        }
 
         viewModel.listHistory.observe(this) { result ->
             if (result != null) {

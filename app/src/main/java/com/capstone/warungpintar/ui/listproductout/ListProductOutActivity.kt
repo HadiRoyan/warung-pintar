@@ -48,9 +48,9 @@ class ListProductOutActivity : AppCompatActivity() {
 
         if (email.isNotEmpty()) {
             viewModel.getListProductOut(email)
-            Log.d(TAG, "onCreate: email $email")
         } else {
-            showMessage("Sesi anda telah habis")
+            Toast.makeText(this, "Sesi anda telah habis", Toast.LENGTH_SHORT).show()
+            auth.signOut()
             startActivity(Intent(this@ListProductOutActivity, WelcomeActivity::class.java))
             finish()
         }
