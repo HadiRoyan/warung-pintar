@@ -45,6 +45,8 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupViews()
         setupAction()
+        val intentDashboard = Intent(this@RegisterActivity, DashboardProduct::class.java)
+
         viewModel.registerFirebaseResult.observe(this) { result ->
             if (result != null) {
                 when (result) {
@@ -57,13 +59,45 @@ class RegisterActivity : AppCompatActivity() {
                         showMessage(result.data)
                         val email = result.data
                         if (email.isNotEmpty()) {
-                            val intent = Intent(this@RegisterActivity, DashboardProduct::class.java)
-                            intent.putExtra("email", email)
-                            startActivity(intent)
-                            viewModel.registerResult.removeObservers(this)
+                            intentDashboard.putExtra("email", email)
+
+                            val storeName = storeNameEditText.text.toString().trim()
+                            val phoneNumber = phoneNumberEditText.text.toString().trim()
+                            val inputEmail = emailEditText.text.toString().trim()
+                            val password = passwordEditText.text.toString().trim()
+
+                            val registerRequest = RegisterRequest(
+                                inputEmail, password, storeName, phoneNumber
+                            )
+                            viewModel.register(registerRequest)
                         } else {
                             showMessage("Terjadi kesalahan, silahkan coba lagi nanti")
                         }
+                    }
+
+                    is ResultState.Error -> {
+                        showLoading(false)
+                        showMessage(result.error)
+                    }
+                }
+            }
+        }
+
+        viewModel.registerResult.observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is ResultState.Loading -> {
+                        showLoading(true)
+                    }
+
+                    is ResultState.Success -> {
+                        showLoading(false)
+                        showMessage(result.data)
+                        val response = result.data
+                        showMessage(response)
+
+                        startActivity(intentDashboard)
+                        viewModel.registerResult.removeObservers(this)
                     }
 
                     is ResultState.Error -> {
@@ -120,16 +154,8 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupAction() {
         binding.btnSignup.setOnClickListener { _ ->
             if (validate()) {
-                val storeName = storeNameEditText.text.toString().trim()
-                val phoneNumber = phoneNumberEditText.text.toString().trim()
                 val email = emailEditText.text.toString().trim()
                 val password = passwordEditText.text.toString().trim()
-
-                // TODO: Not yet connected to the API, still waiting from the CC team
-                val registerRequest = RegisterRequest(
-                    email, password, storeName, phoneNumber
-                )
-                // viewModel.register(registerRequest)
 
                 // This feature is already running (register to Firebase)
                 viewModel.registerToFirebase(email, password)

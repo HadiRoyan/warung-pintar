@@ -46,7 +46,7 @@ class UserRepository(
             emit(ResultState.Success(response.data))
         } catch (e: HttpException) {
             val errorMessage: String = if (e.code() >= 500) {
-                "A server error occurred, try again later"
+                "Terjadi kesalahan pada server, coba lagi nanti"
             } else {
                 val jsonString = e.response()?.errorBody()?.string()
                 val error: ErrorResponse = Gson().fromJson(jsonString, ErrorResponse::class.java)
@@ -56,10 +56,10 @@ class UserRepository(
             Log.d(TAG, "register error: ${e.message}, with response $errorMessage")
         } catch (e: SocketTimeoutException) {
             Log.d(TAG, "register error: ${e.message}")
-            emit(ResultState.Error("Request Timeout"))
+            emit(ResultState.Error("Gagal terhubung dengan server"))
         } catch (e: Exception) {
             Log.d(TAG, "register error: ${e.message}")
-            emit(ResultState.Error("Something Wrong, please try again later"))
+            emit(ResultState.Error("Terjadi kesalahan, silakan coba lagi nanti"))
         }
     }
 
@@ -96,7 +96,7 @@ class UserRepository(
             emit(ResultState.Success(response.data))
         } catch (e: HttpException) {
             val errorMessage: String = if (e.code() >= 500) {
-                "A server error occurred, try again later"
+                "Terjadi kesalahan pada server, coba lagi nanti"
             } else {
                 val jsonString = e.response()?.errorBody()?.string()
                 val error: ErrorResponse = Gson().fromJson(jsonString, ErrorResponse::class.java)
@@ -106,10 +106,10 @@ class UserRepository(
             Log.d(TAG, "login error: ${e.message}, with response $errorMessage")
         } catch (e: SocketTimeoutException) {
             Log.d(TAG, "login error: ${e.message}")
-            emit(ResultState.Error("Request Timeout"))
+            emit(ResultState.Error("Gagal terhubung dengan server"))
         } catch (e: Exception) {
             Log.d(TAG, "login error: ${e.message}")
-            emit(ResultState.Error("Something Wrong, please try again later"))
+            emit(ResultState.Error("Terjadi kesalahan, silakan coba lagi nanti"))
         }
     }
 
@@ -153,20 +153,20 @@ class UserRepository(
             emit(ResultState.Success(response.data))
         } catch (e: HttpException) {
             val errorMessage: String = if (e.code() >= 500) {
-                "A server error occurred, try again later"
+                "Terjadi kesalahan pada server, coba lagi nanti"
             } else {
                 val jsonString = e.response()?.errorBody()?.string()
                 val error: ErrorResponse = Gson().fromJson(jsonString, ErrorResponse::class.java)
                 error.message
             }
             emit(ResultState.Error(errorMessage))
-            Log.d(TAG, "login error: ${e.message}, with response $errorMessage")
+            Log.d(TAG, "get detail user error: ${e.message}, with response $errorMessage")
         } catch (e: SocketTimeoutException) {
-            Log.d(TAG, "login error: ${e.message}")
-            emit(ResultState.Error("Request Timeout"))
+            Log.d(TAG, "get detail user error: ${e.message}")
+            emit(ResultState.Error("Gagal terhubung dengan server"))
         } catch (e: Exception) {
-            Log.d(TAG, "login error: ${e.message}")
-            emit(ResultState.Error("Something Wrong, please try again later"))
+            Log.d(TAG, "get detail user error: ${e.message}")
+            emit(ResultState.Error("Terjadi kesalahan, silakan coba lagi nanti"))
         }
     }
 }

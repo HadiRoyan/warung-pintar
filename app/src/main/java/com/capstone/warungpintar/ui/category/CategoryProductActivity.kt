@@ -3,6 +3,7 @@ package com.capstone.warungpintar.ui.category
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,7 +39,8 @@ class CategoryProductActivity : AppCompatActivity() {
                     }
 
                     is ResultState.Error -> {
-                        // TODO: handle actions when errors occur
+                        showMessage("Terjadi kegagalan, coba lagi nanti")
+                        showLoading(false)
                         Log.d(TAG, "onCreate: error fetch data from API: ${result.error}")
                     }
                 }
@@ -64,6 +66,10 @@ class CategoryProductActivity : AppCompatActivity() {
             rvCategory.adapter = adapter
             rvCategory.layoutManager = LinearLayoutManager(this@CategoryProductActivity)
         }
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(this@CategoryProductActivity, message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

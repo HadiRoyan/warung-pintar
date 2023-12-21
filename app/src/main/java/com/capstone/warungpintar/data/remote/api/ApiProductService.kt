@@ -21,7 +21,7 @@ interface ApiProductService {
     @Multipart
     suspend fun postAddProduct(
         @Part("image") file: RequestBody,
-        @Part("image_description") data: MultipartBody.Part
+        @Part image_description: MultipartBody.Part
     ): ResponseAPI<String>
 
     @GET("api/products/{productId}")
@@ -50,4 +50,9 @@ interface ApiProductService {
 
     @GET("api/products/out/{email}")
     suspend fun getListProductOut(@Path("email") email: String): ResponseAPI<List<String>>
+
+
+    @POST("api/perform-ocr")
+    @Multipart
+    suspend fun getExpiredDateFromOCR(@Part("imageDate") imageData: RequestBody): ResponseAPI<String>
 }

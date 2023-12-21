@@ -1,5 +1,6 @@
 package com.capstone.warungpintar.ui.liststockproduct
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.capstone.warungpintar.R
 import com.capstone.warungpintar.data.model.Product
 import com.capstone.warungpintar.databinding.ItemStockProductRowBinding
+import com.capstone.warungpintar.ui.detailproduct.DetailProductActivity
 
 class ListStockAdapter : ListAdapter<Product, ListStockAdapter.ListStockViewHolder>(DIFF_CALLBACK) {
 
@@ -67,6 +69,12 @@ class ListStockAdapter : ListAdapter<Product, ListStockAdapter.ListStockViewHold
             tvBuyPrice.text = "Rp.${product.purchasePrice}"
             tvEntryDate.text = product.entryDate
             tvTotalStock.text = product.productQuantity.toString()
+
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, DetailProductActivity::class.java)
+                intent.putExtra(DetailProductActivity.EXTRA_PRODUCT_DETAIL, product)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 }

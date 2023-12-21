@@ -15,10 +15,23 @@ class AddProductViewModel(private val productRepository: ProductRepository) : Vi
     private var _resultUpload: MutableLiveData<ResultState<String>> = MutableLiveData()
     val resultUpload: LiveData<ResultState<String>> get() = _resultUpload
 
+
+    private var _resultOCR: MutableLiveData<ResultState<String>> = MutableLiveData()
+    val resultOCR: LiveData<ResultState<String>> get() = _resultOCR
+
     fun upload(imageFile: File, product: ProductRequest) {
         viewModelScope.launch {
-            productRepository.addProduct(imageFile, product).collect { result ->
+            productRepository.postProduct(imageFile, product).collect { result ->
                 _resultUpload.value = result
+            }
+        }
+    }
+
+
+    fun performOCR(imageFile: File) {
+        viewModelScope.launch {
+            productRepository.getExpiredFromOCR(imageFile).collect { result ->
+                _resultOCR.value = result
             }
         }
     }
