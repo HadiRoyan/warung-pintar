@@ -11,11 +11,15 @@ import com.capstone.warungpintar.data.ResultState
 import com.capstone.warungpintar.data.remote.model.request.DeleteProductRequest
 import com.capstone.warungpintar.databinding.ActivityDeleteProductOutBinding
 import com.capstone.warungpintar.utils.Validation
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import java.util.Calendar
 
 class DeleteProductOutActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDeleteProductOutBinding
+    private lateinit var auth: FirebaseAuth
     private var email = ""
 
     private val viewModel: DeleteProductViewModel by viewModels {
@@ -26,6 +30,8 @@ class DeleteProductOutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDeleteProductOutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        auth = Firebase.auth
+        email = auth.currentUser?.email ?: ""
         setupActions()
 
         viewModel.resultDelete.observe(this) { result ->

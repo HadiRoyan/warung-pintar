@@ -32,7 +32,6 @@ class DashboardProduct : AppCompatActivity() {
         DashboardViewModelFactory.getInstance()
     }
 
-    // TODO: use the email of the currently logged-in user
     private var email = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
