@@ -45,20 +45,20 @@ class ProductRepository(
             emit(ResultState.Success(response.data))
         } catch (e: HttpException) {
             val errorMessage: String = if (e.code() >= 500) {
-                "A server error occurred, try again later"
+                "Terjadi kesalahan pada server, coba lagi nanti"
             } else {
                 val jsonString = e.response()?.errorBody()?.string()
                 val error: ErrorResponse = Gson().fromJson(jsonString, ErrorResponse::class.java)
                 error.message
             }
             emit(ResultState.Error(errorMessage))
-            Log.d(TAG, "add product error: ${e.message}, with response $errorMessage")
+            Log.d(TAG, "OCR error: ${e.message}, with response $errorMessage")
         } catch (e: SocketTimeoutException) {
-            Log.d(TAG, "add product error: ${e.message}")
-            emit(ResultState.Error("Request Timeout"))
+            Log.d(TAG, "OCR error: ${e.message}")
+            emit(ResultState.Error("Gagal terhubung dengan server"))
         } catch (e: Exception) {
-            Log.d(TAG, "add product error: ${e.message}")
-            emit(ResultState.Error("Something Wrong, please try again later"))
+            Log.d(TAG, "OCR error: ${e.message}")
+            emit(ResultState.Error("Terjadi kesalahan, silakan coba lagi nanti"))
         }
     }
 
