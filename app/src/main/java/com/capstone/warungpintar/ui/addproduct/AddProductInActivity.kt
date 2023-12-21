@@ -30,6 +30,7 @@ import java.util.Calendar
 
 class AddProductInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddProductInBinding
+    private lateinit var bindingDialog: DialogResultScannerLayoutBinding
     private val cameraRequest = 1888
     private var currentImageUriForOCR: Uri? = null
     private var currentImageUriForProduct: Uri? = null
@@ -80,6 +81,27 @@ class AddProductInActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.resultOCR.observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is ResultState.Loading -> {
+                        showLoadingInDialog(true)
+                    }
+
+                    is ResultState.Success -> {
+                        val expiredDate = result.data
+                        showLoadingInDialog(false)
+                        binding.tvResultscan.text = expiredDate
+                    }
+
+                    is ResultState.Error -> {
+                        showMessage("Gagal memindai tanggal kadaluarsa")
+                        showLoadingInDialog(false)
+                        Log.d(TAG, "onCreate: error fetch data from API: ${result.error}")
+                    }
+                }
+            }
+        }
 
     }
 
@@ -162,10 +184,6 @@ class AddProductInActivity : AppCompatActivity() {
             Log.d(TAG, "uploadProduct: product request: $productRequest")
 
             viewModel.upload(imageFile, productRequest)
-
-            // Use this for testing
-            showMessage("Berhasil menambahkan barang [TEST]")
-            finish()
         }
     }
 
@@ -178,6 +196,14 @@ class AddProductInActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.VISIBLE
         } else {
             binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun showLoadingInDialog(isLoading: Boolean) {
+        if (isLoading) {
+            bindingDialog.progressBar.visibility = View.VISIBLE
+        } else {
+            bindingDialog.progressBar.visibility = View.GONE
         }
     }
 
@@ -260,7 +286,7 @@ class AddProductInActivity : AppCompatActivity() {
     }
 
     private fun showDialogResult(uri: Uri?) {
-        val bindingDialog = DialogResultScannerLayoutBinding.inflate(layoutInflater)
+        bindingDialog = DialogResultScannerLayoutBinding.inflate(layoutInflater)
         val buttonScan = bindingDialog.btnScanOcr
         val buttonResult = bindingDialog.btnSave
 

@@ -21,7 +21,7 @@ interface ApiProductService {
     @Multipart
     suspend fun postAddProduct(
         @Part("image") file: RequestBody,
-        @Part("image_description") data: MultipartBody.Part
+        @Part image_description: MultipartBody.Part
     ): ResponseAPI<String>
 
     @GET("api/products/{productId}")
