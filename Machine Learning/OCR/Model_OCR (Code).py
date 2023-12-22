@@ -8,13 +8,8 @@ from shutil import copyfile
 import matplotlib.pyplot as plt
 import pandas as pd
 
-#Extracting data from google drive
-from google.colab import drive
-drive.mount('/content/gdrive', force_remount=True)
-drive_path = '/content/drive/Shareddrives'
-
 #Assigning source
-source_path = '/content/gdrive/Shareddrives/CAPSTONE/DATASET/EXP_10' #If needed can be changed
+source_path = './DATASET/EXP_10' #If needed can be changed
 
 for number in range(0,10):
   source_path_number = os.path.join(source_path, str(number))
@@ -25,7 +20,7 @@ print(f"There are {len(os.listdir(source_path_1))} images of 1.")
 
 
 # Define root directory
-root_dir = '/digits'
+root_dir = './digits'
 
 # Empty directory to prevent FileExistsError is the function is run several times
 if os.path.exists(root_dir):
